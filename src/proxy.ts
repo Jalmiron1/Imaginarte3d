@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  
+
   // Omitir login de administración y la API de login
   if (path === '/admin/login' || path === '/api/admin/login') {
     return NextResponse.next();
@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
 
   const session = request.cookies.get('admin_session')?.value;
   const isAuthenticated = session === 'authenticated';
-  
+
   if (!isAuthenticated) {
     // Si es una petición API, retornar JSON con error
     if (path.startsWith('/api/')) {
@@ -21,7 +21,7 @@ export function middleware(request: NextRequest) {
     const loginUrl = new URL('/admin/login', request.url);
     return NextResponse.redirect(loginUrl);
   }
-  
+
   return NextResponse.next();
 }
 
