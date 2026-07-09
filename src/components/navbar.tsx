@@ -28,9 +28,6 @@ export function Navbar() {
           <Link href="/productos" className="transition-colors hover:text-foreground/80 text-foreground/60">
             Productos
           </Link>
-          <Link href="/admin" className="transition-colors hover:text-foreground/80 text-foreground/60">
-            Admin
-          </Link>
         </nav>
 
         {/* Botones de acción */}
@@ -75,13 +72,6 @@ export function Navbar() {
               className="px-2 py-1 text-foreground/60 hover:text-foreground transition-colors"
             >
               Productos
-            </Link>
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-2 py-1 text-foreground/60 hover:text-foreground transition-colors"
-            >
-              Panel Admin
             </Link>
           </nav>
         </div>

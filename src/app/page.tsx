@@ -69,13 +69,8 @@ export default async function HomePage() {
             <Box className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
             <h3 className="font-semibold text-lg text-foreground">Sin productos activos</h3>
             <p className="text-sm text-muted-foreground mt-1">
-              Aún no hay productos en la tienda. Si eres administrador, configúrate en el panel.
+              Aún no hay productos disponibles en la tienda. ¡Vuelve pronto!
             </p>
-            <Link href="/admin">
-              <Button variant="outline" size="sm" className="mt-4 cursor-pointer">
-                Iniciar Sesión de Administrador
-              </Button>
-            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
