@@ -194,7 +194,7 @@ export default function AdminProductosPage() {
           <h1 className="text-3xl font-bold tracking-tight text-foreground">Gestión de Productos</h1>
           <p className="text-sm text-muted-foreground mt-1">Crea, edita o elimina los productos del catálogo</p>
         </div>
-        <Button onClick={openCreateModal} className="gap-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white self-start sm:self-auto">
+        <Button onClick={openCreateModal} className="gap-2 cursor-pointer self-start sm:self-auto">
           <Plus className="h-4 w-4" />
           <span>Agregar Producto</span>
         </Button>
@@ -251,7 +251,7 @@ export default function AdminProductosPage() {
                         variant="ghost"
                         size="icon"
                         onClick={() => openEditModal(product)}
-                        className="h-8 w-8 text-blue-600 hover:text-blue-500 hover:bg-blue-50/50"
+                        className="h-8 w-8 text-primary hover:text-primary/80 hover:bg-primary/10"
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -369,7 +369,7 @@ export default function AdminProductosPage() {
                     </div>
                   ) : imageUrl ? (
                     <div className="flex items-center gap-2 border border-border rounded-md px-2 py-1 bg-muted max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                      <ImageIcon className="h-4 w-4 text-blue-600 shrink-0" />
+                      <ImageIcon className="h-4 w-4 text-primary shrink-0" />
                       <span className="text-xs text-muted-foreground truncate">{imageUrl}</span>
                     </div>
                   ) : (
@@ -411,7 +411,7 @@ export default function AdminProductosPage() {
               <Button
                 type="submit"
                 disabled={formSubmitting || uploading || !imageUrl}
-                className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white"
+                className="cursor-pointer"
               >
                 {formSubmitting ? (
                   <>

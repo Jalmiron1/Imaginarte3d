@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -71,7 +71,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.category}
         </span>
         <Link href={`/productos/${product.id}`} className="mt-1 block">
-          <h3 className="font-semibold text-base line-clamp-1 hover:text-blue-600 transition-colors">
+          <h3 className="font-semibold text-base line-clamp-1 hover:text-primary transition-colors">
             {product.name}
           </h3>
         </Link>

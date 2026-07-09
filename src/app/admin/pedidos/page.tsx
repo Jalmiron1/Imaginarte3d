@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -108,7 +108,7 @@ export default function AdminPedidosPage() {
       case 'PAID':
         return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400';
       case 'SHIPPED':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
+        return 'bg-primary/20 text-primary dark:bg-primary/20 dark:text-primary';
       case 'CANCELLED':
         return 'bg-destructive/10 text-destructive';
       default:
@@ -184,7 +184,7 @@ export default function AdminPedidosPage() {
                       variant="ghost"
                       size="icon"
                       onClick={() => openDetailModal(order)}
-                      className="h-8 w-8 text-blue-600 hover:text-blue-500 hover:bg-blue-50/50"
+                      className="h-8 w-8 text-primary hover:text-primary/80 hover:bg-primary/10"
                     >
                       <Eye className="h-4 w-4" />
                     </Button>
@@ -201,7 +201,7 @@ export default function AdminPedidosPage() {
         <DialogContent className="sm:max-w-2xl bg-card text-foreground border-border max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <ClipboardList className="h-5 w-5 text-blue-600" />
+              <ClipboardList className="h-5 w-5 text-primary" />
               <span>Detalle de Pedido</span>
             </DialogTitle>
             <DialogDescription className="font-mono text-xs">
@@ -262,7 +262,7 @@ export default function AdminPedidosPage() {
               <div className="flex items-center justify-between border-y border-border py-4">
                 <span className="text-sm font-semibold text-foreground">Estado del Pedido:</span>
                 <div className="flex items-center gap-2">
-                  {updatingStatus && <Loader2 className="h-4 w-4 animate-spin text-blue-600" />}
+                  {updatingStatus && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
                   <Select
                     value={selectedOrder.status}
                     onValueChange={handleStatusChange}
@@ -317,7 +317,7 @@ export default function AdminPedidosPage() {
                       ))}
                       <TableRow className="bg-muted/30 font-bold">
                         <TableCell colSpan={4} className="text-right py-3 text-base">Total:</TableCell>
-                        <TableCell className="text-right py-3 text-base text-blue-600">
+                        <TableCell className="text-right py-3 text-base text-primary">
                           ${selectedOrder.total.toLocaleString()}
                         </TableCell>
                       </TableRow>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -93,7 +93,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
         {/* Textos y Acción de Compra */}
         <div className="flex flex-col justify-center">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary">
             {product.category}
           </span>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">

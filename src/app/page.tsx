@@ -22,22 +22,22 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col gap-12 pb-12">
       {/* Sección Hero */}
-      <section className="relative overflow-hidden py-20 text-center sm:py-32 bg-slate-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-950 to-slate-950" />
+      <section className="relative overflow-hidden py-20 text-center sm:py-32 bg-background text-foreground">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-background to-background" />
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center gap-6 max-w-4xl">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-400">
-            <Sparkles className="h-3.5 w-3.5 animate-pulse text-blue-400" />
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+            <Sparkles className="h-3.5 w-3.5 animate-pulse text-primary" />
             <span>Nuevos lanzamientos y diseños 3D únicos</span>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-balance">
-            Materializamos tus ideas en <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Impresión 3D</span>
+            Materializamos tus ideas en <span className="bg-gradient-to-r from-[#FF6FA5] to-[#FFD39A] bg-clip-text text-transparent">Impresión 3D</span>
           </h1>
           <p className="text-lg text-slate-300 text-balance max-w-2xl">
             Explora nuestro catálogo de productos de alta precisión. Figuras articuladas, decoración para el hogar y accesorios impresos con plásticos ecológicos.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-4">
             <Link href="/productos">
-              <Button size="lg" className="gap-2 font-medium cursor-pointer shadow-md bg-blue-600 hover:bg-blue-700 border-none text-white">
+              <Button size="lg" className="gap-2 font-medium cursor-pointer shadow-[0_0_15px_rgba(255,111,165,0.3)]">
                 Ver Catálogo Completo
                 <ArrowRight className="h-4 w-4" />
               </Button>
@@ -58,7 +58,7 @@ export default async function HomePage() {
             <h2 className="text-2xl font-bold tracking-tight text-foreground">Productos Destacados</h2>
             <p className="text-sm text-muted-foreground mt-1">Los 4 diseños más recientes del taller</p>
           </div>
-          <Link href="/productos" className="text-sm font-semibold text-blue-600 hover:text-blue-500 flex items-center gap-1">
+          <Link href="/productos" className="text-sm font-semibold text-primary hover:text-primary/80 flex items-center gap-1">
             Ver todo
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -90,8 +90,8 @@ export default async function HomePage() {
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 border-t border-border pt-12 mt-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="flex flex-col items-center text-center p-4">
-            <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600 mb-4">
-              <Box className="h-6 w-6 text-blue-600" />
+            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <Box className="h-6 w-6 text-primary" />
             </div>
             <h3 className="font-semibold text-lg">PLA Biodegradable</h3>
             <p className="text-sm text-muted-foreground mt-2">
@@ -99,8 +99,8 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="flex flex-col items-center text-center p-4">
-            <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600 mb-4">
-              <Sparkles className="h-6 w-6 text-blue-600" />
+            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <Sparkles className="h-6 w-6 text-primary" />
             </div>
             <h3 className="font-semibold text-lg">Resolución Fina</h3>
             <p className="text-sm text-muted-foreground mt-2">
@@ -108,8 +108,8 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="flex flex-col items-center text-center p-4">
-            <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600 mb-4">
-              <Compass className="h-6 w-6 text-blue-600" />
+            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <Compass className="h-6 w-6 text-primary" />
             </div>
             <h3 className="font-semibold text-lg">Pago con Mercado Pago</h3>
             <p className="text-sm text-muted-foreground mt-2">

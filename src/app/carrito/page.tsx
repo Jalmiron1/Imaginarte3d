@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -80,7 +80,7 @@ export default function CarritoPage() {
   if (cartItems.length === 0) {
     return (
       <div className="container mx-auto px-4 py-16 text-center max-w-md flex flex-col items-center gap-6">
-        <div className="h-16 w-16 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-600">
+        <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
           <ShoppingBag className="h-8 w-8" />
         </div>
         <h2 className="text-2xl font-bold tracking-tight">Tu carrito está vacío</h2>
@@ -168,7 +168,7 @@ export default function CarritoPage() {
             <Button variant="outline" size="sm" onClick={clearCart} className="cursor-pointer text-muted-foreground hover:text-destructive">
               Vaciar Carrito
             </Button>
-            <Link href="/productos" className="text-sm font-semibold text-blue-600 hover:text-blue-500">
+            <Link href="/productos" className="text-sm font-semibold text-primary hover:text-primary/80">
               Seguir Comprando
             </Link>
           </div>
@@ -247,7 +247,7 @@ export default function CarritoPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" disabled={loading} className="w-full gap-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white">
+                <Button type="submit" disabled={loading} className="w-full gap-2 cursor-pointer">
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />

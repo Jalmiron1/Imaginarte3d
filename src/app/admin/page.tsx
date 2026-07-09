@@ -1,4 +1,4 @@
-﻿import db from '@/lib/db';
+import db from '@/lib/db';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShoppingBag, ClipboardList, DollarSign } from 'lucide-react';
 
@@ -57,7 +57,7 @@ export default async function AdminDashboardPage() {
             <CardTitle className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Total de Pedidos
             </CardTitle>
-            <ClipboardList className="h-5 w-5 text-blue-500" />
+            <ClipboardList className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-extrabold text-foreground">

@@ -25,7 +25,7 @@ export default async function FailurePage({ searchParams }: PageProps) {
       )}
       <div className="flex flex-col gap-2 w-full mt-2">
         <Link href="/carrito">
-          <Button className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white">Intentar de nuevo</Button>
+          <Button className="w-full cursor-pointer text-primary-foreground">Intentar de nuevo</Button>
         </Link>
         <Link href="/productos">
           <Button variant="ghost" className="w-full cursor-pointer text-muted-foreground">Volver al Catálogo</Button>

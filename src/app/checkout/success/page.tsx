@@ -25,7 +25,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
       )}
       <div className="flex flex-col gap-2 w-full mt-2">
         <Link href="/productos">
-          <Button className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white">Volver al Catálogo</Button>
+          <Button className="w-full cursor-pointer text-primary-foreground">Volver al Catálogo</Button>
         </Link>
         <Link href="/">
           <Button variant="ghost" className="w-full cursor-pointer text-muted-foreground">Ir a Inicio</Button>

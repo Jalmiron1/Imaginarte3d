@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
     <div className="container mx-auto flex min-h-[70vh] items-center justify-center px-4 py-12">
       <Card className="w-full max-w-md border-border bg-card">
         <CardHeader className="space-y-1 text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10 text-blue-600 mb-2">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary mb-2">
             <Lock className="h-6 w-6" />
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight">Panel de Administración</CardTitle>
@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full gap-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white"
+              className="w-full gap-2 cursor-pointer"
             >
               {loading ? (
                 <>
