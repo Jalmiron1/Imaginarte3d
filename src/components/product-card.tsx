@@ -91,7 +91,7 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {/* BotÃ³n de Agregar */}
+        {/* Botón de Agregar */}
         <div className="mt-4">
           <Button
             onClick={handleAddToCart}
@@ -100,7 +100,7 @@ export function ProductCard({ product }: ProductCardProps) {
             variant={isOutOfStock ? 'secondary' : 'default'}
           >
             <ShoppingCart className="h-4 w-4" />
-            {isOutOfStock ? 'Agotado' : 'AÃ±adir al carrito'}
+            {isOutOfStock ? 'Agotado' : 'Añadir al carrito'}
           </Button>
         </div>
       </div>

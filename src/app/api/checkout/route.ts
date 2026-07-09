@@ -6,15 +6,15 @@ import { z } from 'zod';
 
 const checkoutSchema = z.object({
   customerName: z.string().min(1, 'El nombre es obligatorio'),
-  customerEmail: z.string().email('El correo electrÃ³nico no es vÃ¡lido'),
-  customerPhone: z.string().min(1, 'El telÃ©fono es obligatorio'),
-  customerAddress: z.string().min(1, 'La direcciÃ³n de envÃ­o es obligatoria'),
+  customerEmail: z.string().email('El correo electrónico no es válido'),
+  customerPhone: z.string().min(1, 'El teléfono es obligatorio'),
+  customerAddress: z.string().min(1, 'La dirección de envío es obligatoria'),
   items: z.array(
     z.object({
       productId: z.string().uuid(),
       quantity: z.number().int().positive('La cantidad debe ser al menos 1'),
     })
-  ).min(1, 'El carrito de compras no puede estar vacÃ­o'),
+  ).min(1, 'El carrito de compras no puede estar vacío'),
 });
 
 export async function POST(request: Request) {
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
     if (!result.success) {
       return NextResponse.json(
-        { error: 'Datos de checkout invÃ¡lidos', details: result.error.flatten().fieldErrors },
+        { error: 'Datos de checkout inválidos', details: result.error.flatten().fieldErrors },
         { status: 400 }
       );
     }
@@ -41,12 +41,12 @@ export async function POST(request: Request) {
 
     if (dbProducts.length !== items.length) {
       return NextResponse.json(
-        { error: 'Uno o mÃ¡s productos del carrito no existen en nuestro catÃ¡logo' },
+        { error: 'Uno o más productos del carrito no existen en nuestro catálogo' },
         { status: 400 }
       );
     }
 
-    // Map para facilitar bÃºsquedas de productos
+    // Map para facilitar búsquedas de productos
     const productMap = new Map(dbProducts.map((p) => [p.id, p]));
 
     // 2. Validar stock de todos los productos y calcular total
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
       });
     }
 
-    // 3. Crear orden de compra en estado PENDING y sus items asociados usando una transacciÃ³n
+    // 3. Crear orden de compra en estado PENDING y sus items asociados usando una transacción
     const order = await db.$transaction(async (tx) => {
       const newOrder = await tx.order.create({
         data: {
@@ -113,7 +113,7 @@ export async function POST(request: Request) {
     const origin = request.headers.get('origin') || 'http://localhost:3000';
     const preference = new Preference(mpClient);
 
-    // Mapear Ã­tems para Mercado Pago
+    // Mapear ítems para Mercado Pago
     const mpItems = verifiedItems.map((item) => ({
       id: item.productId,
       title: item.name,

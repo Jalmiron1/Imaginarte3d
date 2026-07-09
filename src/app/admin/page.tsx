@@ -24,14 +24,14 @@ export default async function AdminDashboardPage() {
     });
     estimatedRevenue = revenueAggregate._sum.total || 0;
   } catch (error) {
-    console.error('Error al calcular mÃ©tricas en admin dashboard:', error);
+    console.error('Error al calcular métricas en admin dashboard:', error);
   }
 
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Resumen de MÃ©tricas</h1>
-        <p className="text-sm text-muted-foreground mt-1">Control rÃ¡pido del volumen de negocio</p>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Resumen de Métricas</h1>
+        <p className="text-sm text-muted-foreground mt-1">Control rápido del volumen de negocio</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -47,11 +47,11 @@ export default async function AdminDashboardPage() {
             <div className="text-3xl font-extrabold text-foreground">
               ${estimatedRevenue.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">Excluye Ã³rdenes canceladas y pendientes</p>
+            <p className="text-xs text-muted-foreground mt-1">Excluye órdenes canceladas y pendientes</p>
           </CardContent>
         </Card>
 
-        {/* Ã“rdenes Totales */}
+        {/* Órdenes Totales */}
         <Card className="border-border bg-card shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
@@ -71,7 +71,7 @@ export default async function AdminDashboardPage() {
         <Card className="border-border bg-card shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              Productos en CatÃ¡logo
+              Productos en Catálogo
             </CardTitle>
             <ShoppingBag className="h-5 w-5 text-indigo-500" />
           </CardHeader>

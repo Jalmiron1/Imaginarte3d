@@ -57,7 +57,7 @@ export default function AdminPedidosPage() {
         setOrders(data);
       }
     } catch (error) {
-      console.error('Error al obtener Ã³rdenes:', error);
+      console.error('Error al obtener órdenes:', error);
     } finally {
       setLoading(false);
     }
@@ -95,7 +95,7 @@ export default function AdminPedidosPage() {
       }
     } catch (error) {
       console.error('Error al actualizar orden:', error);
-      alert('Error de conexiÃ³n al actualizar orden');
+      alert('Error de conexión al actualizar orden');
     } finally {
       setUpdatingStatus(false);
     }
@@ -130,11 +130,11 @@ export default function AdminPedidosPage() {
     <div className="flex flex-col gap-6">
       {/* Encabezado */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">GestiÃ³n de Pedidos</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Gestión de Pedidos</h1>
         <p className="text-sm text-muted-foreground mt-1">Realiza seguimiento de tus ventas y actualiza sus estados</p>
       </div>
 
-      {/* Tabla de Ã“rdenes */}
+      {/* Tabla de Órdenes */}
       {loading ? (
         <div className="text-center py-12 text-sm text-muted-foreground">
           Cargando pedidos...
@@ -143,7 +143,7 @@ export default function AdminPedidosPage() {
         <div className="text-center py-16 border border-dashed border-border rounded-xl">
           <h3 className="font-semibold text-lg">Sin Pedidos</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            AÃºn no se han registrado compras en la tienda.
+            Aún no se han registrado compras en la tienda.
           </p>
         </div>
       ) : (
@@ -211,7 +211,7 @@ export default function AdminPedidosPage() {
 
           {selectedOrder && (
             <div className="space-y-6 py-2">
-              {/* InformaciÃ³n del Cliente */}
+              {/* Información del Cliente */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Card className="border-border bg-muted/30">
                   <CardContent className="p-4 flex flex-col gap-2.5 text-sm">
@@ -236,7 +236,7 @@ export default function AdminPedidosPage() {
                 <Card className="border-border bg-muted/30">
                   <CardContent className="p-4 flex flex-col gap-2.5 text-sm">
                     <h3 className="font-bold text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                      EnvÃ­o y Entrega
+                      Envío y Entrega
                     </h3>
                     <div className="flex items-start gap-2">
                       <MapPin className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />

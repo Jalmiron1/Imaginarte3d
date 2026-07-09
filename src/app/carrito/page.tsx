@@ -12,7 +12,7 @@ import { Trash2, ShoppingBag, Plus, Minus, CreditCard, Loader2 } from 'lucide-re
 export default function CarritoPage() {
   const { cartItems, removeFromCart, updateQuantity, clearCart, cartTotal, isLoaded } = useCart();
   
-  // Datos de envÃ­o y contacto
+  // Datos de envío y contacto
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -26,7 +26,7 @@ export default function CarritoPage() {
     setError('');
     
     if (cartItems.length === 0) {
-      setError('El carrito estÃ¡ vacÃ­o');
+      setError('El carrito está vacío');
       return;
     }
 
@@ -64,7 +64,7 @@ export default function CarritoPage() {
       window.location.href = redirectUrl;
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'Error de conexiÃ³n con el servidor');
+      setError(err.message || 'Error de conexión con el servidor');
       setLoading(false);
     }
   };
@@ -83,9 +83,9 @@ export default function CarritoPage() {
         <div className="h-16 w-16 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-600">
           <ShoppingBag className="h-8 w-8" />
         </div>
-        <h2 className="text-2xl font-bold tracking-tight">Tu carrito estÃ¡ vacÃ­o</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Tu carrito está vacío</h2>
         <p className="text-sm text-muted-foreground -mt-2">
-          AÃºn no has aÃ±adido ningÃºn producto. Revisa nuestro catÃ¡logo para ver los modelos e impresiones disponibles.
+          Aún no has añadido ningún producto. Revisa nuestro catálogo para ver los modelos e impresiones disponibles.
         </p>
         <Link href="/productos">
           <Button className="cursor-pointer">Ver Productos</Button>
@@ -179,7 +179,7 @@ export default function CarritoPage() {
           <Card className="border-border">
             <CardHeader>
               <CardTitle>Resumen del Pedido</CardTitle>
-              <CardDescription>Completa los datos del envÃ­o para proceder a Mercado Pago.</CardDescription>
+              <CardDescription>Completa los datos del envío para proceder a Mercado Pago.</CardDescription>
             </CardHeader>
             <form onSubmit={handleCheckout}>
               <CardContent className="flex flex-col gap-4">
@@ -187,7 +187,7 @@ export default function CarritoPage() {
                   <Label htmlFor="name">Nombre Completo</Label>
                   <Input
                     id="name"
-                    placeholder="Juan PÃ©rez"
+                    placeholder="Juan Pérez"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -196,7 +196,7 @@ export default function CarritoPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="email">Correo ElectrÃ³nico</Label>
+                  <Label htmlFor="email">Correo Electrónico</Label>
                   <Input
                     id="email"
                     type="email"
@@ -209,7 +209,7 @@ export default function CarritoPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="phone">TelÃ©fono de Contacto</Label>
+                  <Label htmlFor="phone">Teléfono de Contacto</Label>
                   <Input
                     id="phone"
                     placeholder="1122334455"
@@ -221,7 +221,7 @@ export default function CarritoPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="address">DirecciÃ³n Completa de EnvÃ­o</Label>
+                  <Label htmlFor="address">Dirección Completa de Envío</Label>
                   <Input
                     id="address"
                     placeholder="Av. Rivadavia 1234, CABA"

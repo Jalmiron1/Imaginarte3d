@@ -58,12 +58,12 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* BotÃ³n Volver al catÃ¡logo */}
+      {/* Botón Volver al catálogo */}
       <div>
         <Link href="/productos">
           <Button variant="ghost" size="sm" className="gap-1.5 cursor-pointer text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
-            Volver al CatÃ¡logo
+            Volver al Catálogo
           </Button>
         </Link>
       </div>
@@ -91,7 +91,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           )}
         </div>
 
-        {/* Textos y AcciÃ³n de Compra */}
+        {/* Textos y Acción de Compra */}
         <div className="flex flex-col justify-center">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
             {product.category}
@@ -124,7 +124,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 Disponibilidad en taller:
               </span>
               <span className={`font-semibold ${isOutOfStock ? 'text-destructive' : product.stock <= 3 ? 'text-amber-500' : 'text-emerald-500'}`}>
-                {isOutOfStock ? 'Sin Stock' : product.stock <= 3 ? `Â¡Ãšltimas ${product.stock} unidades!` : `${product.stock} unidades`}
+                {isOutOfStock ? 'Sin Stock' : product.stock <= 3 ? `¡Últimas ${product.stock} unidades!` : `${product.stock} unidades`}
               </span>
             </div>
 
@@ -156,7 +156,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   </Button>
                 </div>
 
-                {/* BotÃ³n AÃ±adir */}
+                {/* Botón Añadir */}
                 <Button
                   onClick={handleAddToCart}
                   className="w-full sm:flex-1 gap-2 cursor-pointer transition-all duration-200"
@@ -166,12 +166,12 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   {addedSuccessfully ? (
                     <>
                       <Check className="h-5 w-5 text-emerald-500" />
-                      <span>Â¡AÃ±adido!</span>
+                      <span>¡Añadido!</span>
                     </>
                   ) : (
                     <>
                       <ShoppingCart className="h-5 w-5" />
-                      <span>AÃ±adir al carrito</span>
+                      <span>Añadir al carrito</span>
                     </>
                   )}
                 </Button>

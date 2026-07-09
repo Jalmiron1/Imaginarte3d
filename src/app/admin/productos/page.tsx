@@ -159,7 +159,7 @@ export default function AdminProductosPage() {
       setFormOpen(false);
       fetchProducts();
     } catch (err: any) {
-      setFormError(err.message || 'OcurriÃ³ un error');
+      setFormError(err.message || 'Ocurrió un error');
     } finally {
       setFormSubmitting(false);
     }
@@ -191,8 +191,8 @@ export default function AdminProductosPage() {
       {/* Encabezado */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">GestiÃ³n de Productos</h1>
-          <p className="text-sm text-muted-foreground mt-1">Crea, edita o elimina los productos del catÃ¡logo</p>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Gestión de Productos</h1>
+          <p className="text-sm text-muted-foreground mt-1">Crea, edita o elimina los productos del catálogo</p>
         </div>
         <Button onClick={openCreateModal} className="gap-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white self-start sm:self-auto">
           <Plus className="h-4 w-4" />
@@ -203,11 +203,11 @@ export default function AdminProductosPage() {
       {/* Tabla de Productos */}
       {loading ? (
         <div className="text-center py-12 text-sm text-muted-foreground">
-          Cargando productos del catÃ¡logo...
+          Cargando productos del catálogo...
         </div>
       ) : products.length === 0 ? (
         <div className="text-center py-16 border border-dashed border-border rounded-xl">
-          <h3 className="font-semibold text-lg">CatÃ¡logo VacÃ­o</h3>
+          <h3 className="font-semibold text-lg">Catálogo Vacío</h3>
           <p className="text-sm text-muted-foreground mt-1">
             Haz clic en &quot;Agregar Producto&quot; para publicar el primero.
           </p>
@@ -219,7 +219,7 @@ export default function AdminProductosPage() {
               <TableRow>
                 <TableHead className="w-16">Imagen</TableHead>
                 <TableHead>Nombre</TableHead>
-                <TableHead>CategorÃ­a</TableHead>
+                <TableHead>Categoría</TableHead>
                 <TableHead className="text-right">Precio</TableHead>
                 <TableHead className="text-right">Descuento</TableHead>
                 <TableHead className="text-right">Stock</TableHead>
@@ -278,7 +278,7 @@ export default function AdminProductosPage() {
           <DialogHeader>
             <DialogTitle>{selectedProduct ? 'Editar Producto' : 'Crear Producto'}</DialogTitle>
             <DialogDescription>
-              Completa los datos del producto. La imagen se subirÃ¡ directamente a Supabase Storage.
+              Completa los datos del producto. La imagen se subirá directamente a Supabase Storage.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
@@ -290,19 +290,19 @@ export default function AdminProductosPage() {
                   id="prod-name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Ej. DragÃ³n articulado"
+                  placeholder="Ej. Dragón articulado"
                   required
                 />
               </div>
 
-              {/* CategorÃ­a */}
+              {/* Categoría */}
               <div className="flex flex-col gap-1.5 sm:col-span-2">
-                <Label htmlFor="prod-category">CategorÃ­a</Label>
+                <Label htmlFor="prod-category">Categoría</Label>
                 <Input
                   id="prod-category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  placeholder="Ej. Articulados, DecoraciÃ³n"
+                  placeholder="Ej. Articulados, Decoración"
                   required
                 />
               </div>
@@ -373,14 +373,14 @@ export default function AdminProductosPage() {
                       <span className="text-xs text-muted-foreground truncate">{imageUrl}</span>
                     </div>
                   ) : (
-                    <span className="text-xs text-muted-foreground">NingÃºn archivo subido</span>
+                    <span className="text-xs text-muted-foreground">Ningún archivo subido</span>
                   )}
                 </div>
               </div>
 
-              {/* DescripciÃ³n */}
+              {/* Descripción */}
               <div className="flex flex-col gap-1.5 sm:col-span-2">
-                <Label htmlFor="prod-description">DescripciÃ³n</Label>
+                <Label htmlFor="prod-description">Descripción</Label>
                 <Textarea
                   id="prod-description"
                   value={description}
@@ -427,13 +427,13 @@ export default function AdminProductosPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Modal de ConfirmaciÃ³n para Eliminar */}
+      {/* Modal de Confirmación para Eliminar */}
       <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
         <DialogContent className="sm:max-w-md bg-card text-foreground border-border">
           <DialogHeader>
-            <DialogTitle>Â¿Confirmar eliminaciÃ³n?</DialogTitle>
+            <DialogTitle>¿Confirmar eliminación?</DialogTitle>
             <DialogDescription>
-              Esta acciÃ³n no se puede deshacer. Se eliminarÃ¡ el producto &quot;{selectedProduct?.name}&quot; del catÃ¡logo de forma permanente.
+              Esta acción no se puede deshacer. Se eliminará el producto &quot;{selectedProduct?.name}&quot; del catálogo de forma permanente.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2 sm:gap-0 pt-4 border-t border-border">
