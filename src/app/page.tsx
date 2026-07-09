@@ -37,7 +37,7 @@ export default async function HomePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-4">
             <Link href="/productos">
-              <Button size="lg" className="gap-2 font-medium cursor-pointer shadow-[0_0_15px_rgba(255,111,165,0.3)]">
+              <Button size="lg" className="gap-2 font-bold text-background cursor-pointer shadow-[0_0_15px_rgba(255,111,165,0.3)]">
                 Ver Catálogo Completo
                 <ArrowRight className="h-4 w-4" />
               </Button>
