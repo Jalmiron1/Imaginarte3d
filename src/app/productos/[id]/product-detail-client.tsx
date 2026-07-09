@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -58,12 +58,12 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Botón Volver al catálogo */}
+      {/* BotÃ³n Volver al catÃ¡logo */}
       <div>
         <Link href="/productos">
           <Button variant="ghost" size="sm" className="gap-1.5 cursor-pointer text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
-            Volver al Catálogo
+            Volver al CatÃ¡logo
           </Button>
         </Link>
       </div>
@@ -91,7 +91,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           )}
         </div>
 
-        {/* Textos y Acción de Compra */}
+        {/* Textos y AcciÃ³n de Compra */}
         <div className="flex flex-col justify-center">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
             {product.category}
@@ -103,11 +103,11 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           {/* Precios */}
           <div className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl font-extrabold text-foreground">
-              ${finalPrice.toLocaleString('es-AR', { minimumFractionDigits: 0 })}
+              ${finalPrice.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
             </span>
             {product.discount > 0 && (
               <span className="text-lg text-muted-foreground line-through">
-                ${product.price.toLocaleString('es-AR', { minimumFractionDigits: 0 })}
+                ${product.price.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
               </span>
             )}
           </div>
@@ -124,7 +124,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 Disponibilidad en taller:
               </span>
               <span className={`font-semibold ${isOutOfStock ? 'text-destructive' : product.stock <= 3 ? 'text-amber-500' : 'text-emerald-500'}`}>
-                {isOutOfStock ? 'Sin Stock' : product.stock <= 3 ? `¡Últimas ${product.stock} unidades!` : `${product.stock} unidades`}
+                {isOutOfStock ? 'Sin Stock' : product.stock <= 3 ? `Â¡Ãšltimas ${product.stock} unidades!` : `${product.stock} unidades`}
               </span>
             </div>
 
@@ -156,7 +156,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   </Button>
                 </div>
 
-                {/* Botón Añadir */}
+                {/* BotÃ³n AÃ±adir */}
                 <Button
                   onClick={handleAddToCart}
                   className="w-full sm:flex-1 gap-2 cursor-pointer transition-all duration-200"
@@ -166,12 +166,12 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   {addedSuccessfully ? (
                     <>
                       <Check className="h-5 w-5 text-emerald-500" />
-                      <span>¡Añadido!</span>
+                      <span>Â¡AÃ±adido!</span>
                     </>
                   ) : (
                     <>
                       <ShoppingCart className="h-5 w-5" />
-                      <span>Añadir al carrito</span>
+                      <span>AÃ±adir al carrito</span>
                     </>
                   )}
                 </Button>
@@ -183,3 +183,4 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
     </div>
   );
 }
+

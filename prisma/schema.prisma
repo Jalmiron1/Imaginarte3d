@@ -42,5 +42,5 @@ model OrderItem {
   quantity  Int
   price     Float    // El precio histórico cobrado (con descuento aplicado)
   order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }

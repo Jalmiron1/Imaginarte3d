@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ import { Trash2, ShoppingBag, Plus, Minus, CreditCard, Loader2 } from 'lucide-re
 export default function CarritoPage() {
   const { cartItems, removeFromCart, updateQuantity, clearCart, cartTotal, isLoaded } = useCart();
   
-  // Datos de envío y contacto
+  // Datos de envÃ­o y contacto
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -26,7 +26,7 @@ export default function CarritoPage() {
     setError('');
     
     if (cartItems.length === 0) {
-      setError('El carrito está vacío');
+      setError('El carrito estÃ¡ vacÃ­o');
       return;
     }
 
@@ -64,7 +64,7 @@ export default function CarritoPage() {
       window.location.href = redirectUrl;
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'Error de conexión con el servidor');
+      setError(err.message || 'Error de conexiÃ³n con el servidor');
       setLoading(false);
     }
   };
@@ -83,9 +83,9 @@ export default function CarritoPage() {
         <div className="h-16 w-16 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-600">
           <ShoppingBag className="h-8 w-8" />
         </div>
-        <h2 className="text-2xl font-bold tracking-tight">Tu carrito está vacío</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Tu carrito estÃ¡ vacÃ­o</h2>
         <p className="text-sm text-muted-foreground -mt-2">
-          Aún no has añadido ningún producto. Revisa nuestro catálogo para ver los modelos e impresiones disponibles.
+          AÃºn no has aÃ±adido ningÃºn producto. Revisa nuestro catÃ¡logo para ver los modelos e impresiones disponibles.
         </p>
         <Link href="/productos">
           <Button className="cursor-pointer">Ver Productos</Button>
@@ -118,7 +118,7 @@ export default function CarritoPage() {
                       <div>
                         <h3 className="font-semibold text-sm line-clamp-1">{item.name}</h3>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                          ${unitPrice.toLocaleString('es-AR', { minimumFractionDigits: 0 })} c/u
+                          ${unitPrice.toLocaleString('es-UY', { minimumFractionDigits: 0 })} c/u
                         </p>
                       </div>
                       <Button
@@ -155,7 +155,7 @@ export default function CarritoPage() {
                         </Button>
                       </div>
                       <span className="font-bold text-sm text-foreground">
-                        ${subtotal.toLocaleString('es-AR', { minimumFractionDigits: 0 })}
+                        ${subtotal.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
                       </span>
                     </div>
                   </div>
@@ -179,7 +179,7 @@ export default function CarritoPage() {
           <Card className="border-border">
             <CardHeader>
               <CardTitle>Resumen del Pedido</CardTitle>
-              <CardDescription>Completa los datos del envío para proceder a Mercado Pago.</CardDescription>
+              <CardDescription>Completa los datos del envÃ­o para proceder a Mercado Pago.</CardDescription>
             </CardHeader>
             <form onSubmit={handleCheckout}>
               <CardContent className="flex flex-col gap-4">
@@ -187,7 +187,7 @@ export default function CarritoPage() {
                   <Label htmlFor="name">Nombre Completo</Label>
                   <Input
                     id="name"
-                    placeholder="Juan Pérez"
+                    placeholder="Juan PÃ©rez"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -196,7 +196,7 @@ export default function CarritoPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="email">Correo Electrónico</Label>
+                  <Label htmlFor="email">Correo ElectrÃ³nico</Label>
                   <Input
                     id="email"
                     type="email"
@@ -209,7 +209,7 @@ export default function CarritoPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="phone">Teléfono de Contacto</Label>
+                  <Label htmlFor="phone">TelÃ©fono de Contacto</Label>
                   <Input
                     id="phone"
                     placeholder="1122334455"
@@ -221,7 +221,7 @@ export default function CarritoPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="address">Dirección Completa de Envío</Label>
+                  <Label htmlFor="address">DirecciÃ³n Completa de EnvÃ­o</Label>
                   <Input
                     id="address"
                     placeholder="Av. Rivadavia 1234, CABA"
@@ -242,7 +242,7 @@ export default function CarritoPage() {
                 <div className="border-t border-border pt-4 mt-2 flex justify-between items-center">
                   <span className="font-semibold text-base">Total</span>
                   <span className="font-extrabold text-2xl text-foreground">
-                    ${cartTotal.toLocaleString('es-AR', { minimumFractionDigits: 0 })}
+                    ${cartTotal.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
                   </span>
                 </div>
               </CardContent>
@@ -268,3 +268,4 @@ export default function CarritoPage() {
     </div>
   );
 }
+

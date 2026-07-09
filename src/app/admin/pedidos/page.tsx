@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -57,7 +57,7 @@ export default function AdminPedidosPage() {
         setOrders(data);
       }
     } catch (error) {
-      console.error('Error al obtener órdenes:', error);
+      console.error('Error al obtener Ã³rdenes:', error);
     } finally {
       setLoading(false);
     }
@@ -95,7 +95,7 @@ export default function AdminPedidosPage() {
       }
     } catch (error) {
       console.error('Error al actualizar orden:', error);
-      alert('Error de conexión al actualizar orden');
+      alert('Error de conexiÃ³n al actualizar orden');
     } finally {
       setUpdatingStatus(false);
     }
@@ -130,11 +130,11 @@ export default function AdminPedidosPage() {
     <div className="flex flex-col gap-6">
       {/* Encabezado */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Gestión de Pedidos</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">GestiÃ³n de Pedidos</h1>
         <p className="text-sm text-muted-foreground mt-1">Realiza seguimiento de tus ventas y actualiza sus estados</p>
       </div>
 
-      {/* Tabla de Órdenes */}
+      {/* Tabla de Ã“rdenes */}
       {loading ? (
         <div className="text-center py-12 text-sm text-muted-foreground">
           Cargando pedidos...
@@ -143,7 +143,7 @@ export default function AdminPedidosPage() {
         <div className="text-center py-16 border border-dashed border-border rounded-xl">
           <h3 className="font-semibold text-lg">Sin Pedidos</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            Aún no se han registrado compras en la tienda.
+            AÃºn no se han registrado compras en la tienda.
           </p>
         </div>
       ) : (
@@ -165,7 +165,7 @@ export default function AdminPedidosPage() {
                   <TableCell className="font-mono text-xs truncate max-w-[120px]">{order.id}</TableCell>
                   <TableCell className="font-semibold">{order.customerName}</TableCell>
                   <TableCell>
-                    {new Date(order.createdAt).toLocaleDateString('es-AR', {
+                    {new Date(order.createdAt).toLocaleDateString('es-UY', {
                       day: '2-digit',
                       month: '2-digit',
                       year: 'numeric',
@@ -211,7 +211,7 @@ export default function AdminPedidosPage() {
 
           {selectedOrder && (
             <div className="space-y-6 py-2">
-              {/* Información del Cliente */}
+              {/* InformaciÃ³n del Cliente */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Card className="border-border bg-muted/30">
                   <CardContent className="p-4 flex flex-col gap-2.5 text-sm">
@@ -236,7 +236,7 @@ export default function AdminPedidosPage() {
                 <Card className="border-border bg-muted/30">
                   <CardContent className="p-4 flex flex-col gap-2.5 text-sm">
                     <h3 className="font-bold text-xs uppercase tracking-wider text-muted-foreground mb-1">
-                      Envío y Entrega
+                      EnvÃ­o y Entrega
                     </h3>
                     <div className="flex items-start gap-2">
                       <MapPin className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
@@ -245,7 +245,7 @@ export default function AdminPedidosPage() {
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
                       <span>
-                        {new Date(selectedOrder.createdAt).toLocaleDateString('es-AR', {
+                        {new Date(selectedOrder.createdAt).toLocaleDateString('es-UY', {
                           day: 'numeric',
                           month: 'long',
                           year: 'numeric',
@@ -332,3 +332,4 @@ export default function AdminPedidosPage() {
     </div>
   );
 }
+

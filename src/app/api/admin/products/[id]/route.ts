@@ -71,17 +71,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Producto no encontrado' }, { status: 404 });
     }
 
-    // Verificar si tiene asociaciones en pedidos para evitar error de FK
-    const orderItemsCount = await db.orderItem.count({
-      where: { productId: id },
-    });
-
-    if (orderItemsCount > 0) {
-      return NextResponse.json(
-        { error: 'No se puede eliminar el producto. Está referenciado en órdenes de compra previas.' },
-        { status: 400 }
-      );
-    }
+    // Eliminar el producto; las relaciones de OrderItem se eliminan en cascada por la configuración de la base de datos
 
     await db.product.delete({
       where: { id },

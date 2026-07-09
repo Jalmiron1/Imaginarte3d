@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -82,16 +82,16 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Precios */}
         <div className="mt-3 flex items-baseline gap-2">
           <span className="text-lg font-bold text-foreground">
-            ${finalPrice.toLocaleString('es-AR', { minimumFractionDigits: 0 })}
+            ${finalPrice.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
           </span>
           {product.discount > 0 && (
             <span className="text-xs text-muted-foreground line-through">
-              ${product.price.toLocaleString('es-AR', { minimumFractionDigits: 0 })}
+              ${product.price.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
             </span>
           )}
         </div>
 
-        {/* Botón de Agregar */}
+        {/* BotÃ³n de Agregar */}
         <div className="mt-4">
           <Button
             onClick={handleAddToCart}
@@ -100,10 +100,11 @@ export function ProductCard({ product }: ProductCardProps) {
             variant={isOutOfStock ? 'secondary' : 'default'}
           >
             <ShoppingCart className="h-4 w-4" />
-            {isOutOfStock ? 'Agotado' : 'Añadir al carrito'}
+            {isOutOfStock ? 'Agotado' : 'AÃ±adir al carrito'}
           </Button>
         </div>
       </div>
     </div>
   );
 }
+
