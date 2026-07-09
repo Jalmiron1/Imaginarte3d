@@ -36,6 +36,7 @@ interface Order {
 
 export default function AdminPedidosPage() {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [statusFilter, setStatusFilter] = useState<'ALL' | Order['status']>('ALL');
   const [loading, setLoading] = useState(true);
   
   // Modales
@@ -134,6 +135,33 @@ export default function AdminPedidosPage() {
         <p className="text-sm text-muted-foreground mt-1">Realiza seguimiento de tus ventas y actualiza sus estados</p>
       </div>
 
+      {/* Filtros */}
+      {!loading && orders.length > 0 && (
+        <div className="flex flex-wrap items-center gap-3 bg-card p-3 rounded-xl border border-border">
+          <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mr-2">Filtrar por:</span>
+          <div className="flex flex-wrap gap-1.5">
+            {(['ALL', 'PENDING', 'PAID', 'SHIPPED', 'CANCELLED'] as const).map((status) => {
+              const isActive = statusFilter === status;
+              return (
+                <Button
+                  key={status}
+                  variant={isActive ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setStatusFilter(status)}
+                  className={`cursor-pointer ${
+                    isActive
+                      ? 'text-background font-bold'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {status === 'ALL' ? 'Todos' : getStatusLabel(status as Order['status'])}
+                </Button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Tabla de Órdenes */}
       {loading ? (
         <div className="text-center py-12 text-sm text-muted-foreground">
@@ -146,9 +174,26 @@ export default function AdminPedidosPage() {
             Aún no se han registrado compras en la tienda.
           </p>
         </div>
-      ) : (
-        <div className="rounded-xl border border-border bg-card overflow-hidden">
-          <Table>
+      ) : (() => {
+        const filteredOrders = orders.filter((order) => {
+          if (statusFilter !== 'ALL' && order.status !== statusFilter) return false;
+          return true;
+        });
+
+        if (filteredOrders.length === 0) {
+          return (
+            <div className="text-center py-16 border border-dashed border-border rounded-xl">
+              <h3 className="font-semibold text-lg">Sin resultados</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                No hay pedidos con el estado "{statusFilter === 'ALL' ? 'Todos' : getStatusLabel(statusFilter as Order['status'])}".
+              </p>
+            </div>
+          );
+        }
+
+        return (
+          <div className="rounded-xl border border-border bg-card overflow-hidden">
+            <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[120px]">ID de Pedido</TableHead>
@@ -160,7 +205,7 @@ export default function AdminPedidosPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {orders.map((order) => (
+              {filteredOrders.map((order) => (
                 <TableRow key={order.id}>
                   <TableCell className="font-mono text-xs truncate max-w-[120px]">{order.id}</TableCell>
                   <TableCell className="font-semibold">{order.customerName}</TableCell>
@@ -194,6 +239,8 @@ export default function AdminPedidosPage() {
             </TableBody>
           </Table>
         </div>
+        );
+      })()}
       )}
 
       {/* Modal de Detalle de la Orden */}
@@ -269,7 +316,7 @@ export default function AdminPedidosPage() {
                     disabled={updatingStatus}
                   >
                     <SelectTrigger className="w-[180px] bg-card text-foreground">
-                      <SelectValue placeholder="Seleccionar estado" />
+                      <span>{getStatusLabel(selectedOrder.status)}</span>
                     </SelectTrigger>
                     <SelectContent className="bg-card text-foreground border-border">
                       <SelectItem value="PENDING" className="cursor-pointer">Pendiente</SelectItem>
