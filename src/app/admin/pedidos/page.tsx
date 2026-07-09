@@ -241,7 +241,6 @@ export default function AdminPedidosPage() {
         </div>
         );
       })()}
-      )}
 
       {/* Modal de Detalle de la Orden */}
       <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
