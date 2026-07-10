@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
-import { Eye, ClipboardList, Loader2, Calendar, Phone, Mail, MapPin, User } from 'lucide-react';
+import { Eye, Trash2, ClipboardList, Loader2, Calendar, Phone, Mail, MapPin, User } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -29,7 +29,7 @@ interface Order {
   customerPhone: string;
   customerAddress: string;
   total: number;
-  status: 'PENDING' | 'PAID' | 'SHIPPED' | 'CANCELLED';
+  status: 'PENDING' | 'PAID' | 'PRODUCTION' | 'SHIPPED' | 'CANCELLED';
   createdAt: string;
   items: OrderItem[];
 }
@@ -69,7 +69,29 @@ export default function AdminPedidosPage() {
     setDetailOpen(true);
   };
 
-  const handleStatusChange = async (newStatus: "PENDING" | "PAID" | "SHIPPED" | "CANCELLED" | null) => {
+  const handleDeleteOrder = async (orderId: string) => {
+    if (!confirm('¿Estás seguro de que deseas eliminar este pedido permanentemente? Esta acción no se puede deshacer.')) return;
+    
+    try {
+      const response = await fetch(`/api/admin/orders/${orderId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setOrders((prev) => prev.filter((o) => o.id !== orderId));
+        setDetailOpen(false);
+        setSelectedOrder(null);
+      } else {
+        const data = await response.json();
+        alert(data.error || 'Error al eliminar el pedido');
+      }
+    } catch (error) {
+      console.error('Error al eliminar pedido:', error);
+      alert('Error de conexión al eliminar el pedido');
+    }
+  };
+
+  const handleStatusChange = async (newStatus: "PENDING" | "PAID" | "PRODUCTION" | "SHIPPED" | "CANCELLED" | null) => {
     if (!selectedOrder || !newStatus) return;
     
     setUpdatingStatus(true);
@@ -108,6 +130,8 @@ export default function AdminPedidosPage() {
         return 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400';
       case 'PAID':
         return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400';
+      case 'PRODUCTION':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
       case 'SHIPPED':
         return 'bg-primary/20 text-primary dark:bg-primary/20 dark:text-primary';
       case 'CANCELLED':
@@ -121,6 +145,7 @@ export default function AdminPedidosPage() {
     switch (status) {
       case 'PENDING': return 'Pendiente';
       case 'PAID': return 'Pagado';
+      case 'PRODUCTION': return 'En producción';
       case 'SHIPPED': return 'Enviado';
       case 'CANCELLED': return 'Cancelado';
       default: return status;
@@ -140,7 +165,7 @@ export default function AdminPedidosPage() {
         <div className="flex flex-wrap items-center gap-3 bg-card p-3 rounded-xl border border-border">
           <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mr-2">Filtrar por:</span>
           <div className="flex flex-wrap gap-1.5">
-            {(['ALL', 'PENDING', 'PAID', 'SHIPPED', 'CANCELLED'] as const).map((status) => {
+            {(['ALL', 'PENDING', 'PAID', 'PRODUCTION', 'SHIPPED', 'CANCELLED'] as const).map((status) => {
               const isActive = statusFilter === status;
               return (
                 <Button
@@ -225,14 +250,27 @@ export default function AdminPedidosPage() {
                     </span>
                   </TableCell>
                   <TableCell className="text-center">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => openDetailModal(order)}
-                      className="h-8 w-8 text-primary hover:text-primary/80 hover:bg-primary/10"
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
+                    <div className="flex justify-center gap-1.5">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => openDetailModal(order)}
+                        className="h-8 w-8 text-primary hover:text-primary/80 hover:bg-primary/10"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      {order.status === 'CANCELLED' && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDeleteOrder(order.id)}
+                          className="h-8 w-8 text-destructive hover:text-destructive/85 hover:bg-destructive/10"
+                          title="Eliminar pedido cancelado"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -320,6 +358,7 @@ export default function AdminPedidosPage() {
                     <SelectContent className="bg-card text-foreground border-border">
                       <SelectItem value="PENDING" className="cursor-pointer">Pendiente</SelectItem>
                       <SelectItem value="PAID" className="cursor-pointer">Pagado</SelectItem>
+                      <SelectItem value="PRODUCTION" className="cursor-pointer">En producción</SelectItem>
                       <SelectItem value="SHIPPED" className="cursor-pointer">Enviado</SelectItem>
                       <SelectItem value="CANCELLED" className="cursor-pointer text-destructive">Cancelado</SelectItem>
                     </SelectContent>

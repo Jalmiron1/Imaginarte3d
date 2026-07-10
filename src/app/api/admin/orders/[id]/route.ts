@@ -3,13 +3,14 @@ import db from '@/lib/db';
 import { z } from 'zod';
 
 const statusSchema = z.object({
-  status: z.enum(['PENDING', 'PAID', 'SHIPPED', 'CANCELLED']),
+  status: z.enum(['PENDING', 'PAID', 'PRODUCTION', 'SHIPPED', 'CANCELLED']),
 });
 
 type RouteParams = {
   params: Promise<{ id: string }>;
 };
 
+// PUT: Actualizar el estado de un pedido
 export async function PUT(
   request: Request,
   { params }: RouteParams
@@ -44,11 +45,11 @@ export async function PUT(
       // Determinar si debemos descontar stock (Transición de CANCELLED a un estado activo)
       const shouldDecrement = 
         oldStatus === 'CANCELLED' && 
-        (newStatus === 'PENDING' || newStatus === 'PAID' || newStatus === 'SHIPPED');
+        (newStatus === 'PENDING' || newStatus === 'PAID' || newStatus === 'PRODUCTION' || newStatus === 'SHIPPED');
 
       // Determinar si debemos reponer/incrementar stock (Transición de estado activo a CANCELLED)
       const shouldIncrement = 
-        (oldStatus === 'PENDING' || oldStatus === 'PAID' || oldStatus === 'SHIPPED') && 
+        (oldStatus === 'PENDING' || oldStatus === 'PAID' || oldStatus === 'PRODUCTION' || oldStatus === 'SHIPPED') && 
         newStatus === 'CANCELLED';
 
       // Actualizar la orden
@@ -93,5 +94,39 @@ export async function PUT(
   } catch (error) {
     console.error('Error al actualizar orden:', error);
     return NextResponse.json({ error: 'Error al actualizar el estado de la orden' }, { status: 500 });
+  }
+}
+
+// DELETE: Eliminar un pedido cancelado
+export async function DELETE(
+  request: Request,
+  { params }: RouteParams
+) {
+  try {
+    const { id } = await params;
+
+    // Verificar si existe la orden
+    const existingOrder = await db.order.findUnique({
+      where: { id },
+    });
+
+    if (!existingOrder) {
+      return NextResponse.json({ error: 'Pedido no encontrado' }, { status: 404 });
+    }
+
+    // Solo se permite eliminar pedidos cancelados
+    if (existingOrder.status !== 'CANCELLED') {
+      return NextResponse.json({ error: 'Solo se pueden eliminar pedidos cancelados' }, { status: 400 });
+    }
+
+    // Eliminar la orden. Las relaciones de OrderItem se eliminan en cascada gracias a onDelete: Cascade en schema.prisma
+    await db.order.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true, message: 'Pedido eliminado correctamente' });
+  } catch (error: any) {
+    console.error('Error al eliminar pedido:', error);
+    return NextResponse.json({ error: 'Error al eliminar el pedido', details: error.message }, { status: 500 });
   }
 }
