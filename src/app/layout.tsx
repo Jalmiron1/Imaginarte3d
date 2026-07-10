@@ -40,7 +40,7 @@ export default function RootLayout({
               <p className="mt-1">Diseñado e impreso con tecnología de alta precisión.</p>
               <Link 
                 href="/admin" 
-                className="absolute right-4 bottom-1/2 translate-y-1/2 opacity-10 hover:opacity-80 transition-opacity duration-200 text-muted-foreground"
+                className="absolute right-4 bottom-1/2 translate-y-1/2 opacity-30 hover:opacity-100 transition-opacity duration-200 text-muted-foreground"
                 title="Panel de Control"
               >
                 <Lock className="h-3.5 w-3.5" />
