@@ -407,7 +407,6 @@ export default function AdminProductosPage() {
                     const val = raw === '' ? 0 : Math.min(100, Number(raw));
                     setDiscount(val);
                   }}
-                  required
                 />
               </div>
 
@@ -425,7 +424,6 @@ export default function AdminProductosPage() {
                     const raw = e.target.value.replace(/[^0-9]/g, '');
                     setStock(raw === '' ? 0 : Number(raw));
                   }}
-                  required
                 />
               </div>
 
