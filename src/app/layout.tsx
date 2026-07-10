@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart-provider";
 import { Navbar } from "@/components/navbar";
+import Link from "next/link";
+import { Lock } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +35,16 @@ export default function RootLayout({
             {children}
           </main>
           <footer className="border-t border-border bg-muted py-6 mt-12">
-            <div className="container mx-auto px-4 text-center text-xs text-muted-foreground">
+            <div className="container mx-auto px-4 text-center text-xs text-muted-foreground relative">
               <p>&copy; {new Date().getFullYear()} Imaginarte3D. Todos los derechos reservados.</p>
               <p className="mt-1">Diseñado e impreso con tecnología de alta precisión.</p>
+              <Link 
+                href="/admin" 
+                className="absolute right-4 bottom-1/2 translate-y-1/2 opacity-10 hover:opacity-80 transition-opacity duration-200 text-muted-foreground"
+                title="Panel de Control"
+              >
+                <Lock className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </footer>
         </CartProvider>
