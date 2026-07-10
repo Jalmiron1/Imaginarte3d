@@ -25,42 +25,45 @@ export function Navbar() {
             <span className="bg-gradient-to-r from-[#FF6FA5] to-[#FFD39A] bg-clip-text text-transparent">Imaginarte3D</span>
           </Link>
 
-          {/* Navegación Desktop */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <Link href="/" className="transition-colors hover:text-foreground/80 text-foreground/60">
-              Inicio
-            </Link>
-            <Link href="/productos" className="transition-colors hover:text-foreground/80 text-foreground/60">
-              Productos
-            </Link>
-          </nav>
+          {/* Grupo de Navegación y Acciones a la derecha */}
+          <div className="flex items-center gap-6">
+            {/* Navegación Desktop */}
+            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+              <Link href="/" className="transition-colors hover:text-foreground/80 text-foreground/60">
+                Inicio
+              </Link>
+              <Link href="/productos" className="transition-colors hover:text-foreground/80 text-foreground/60">
+                Productos
+              </Link>
+            </nav>
 
-          {/* Botones de acción */}
-          <div className="flex items-center gap-2">
-            <Button
-              data-cart-btn
-              variant="outline"
-              size="icon"
-              onClick={() => setCartOpen(true)}
-              className="relative h-10 w-10 rounded-full border-border hover:bg-accent transition-all cursor-pointer"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {isLoaded && cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground ring-2 ring-background animate-in zoom-in duration-200">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
+            {/* Botones de acción */}
+            <div className="flex items-center gap-2">
+              <Button
+                data-cart-btn
+                variant="outline"
+                size="icon"
+                onClick={() => setCartOpen(true)}
+                className="relative h-10 w-10 rounded-full border-border hover:bg-accent transition-all cursor-pointer"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {isLoaded && cartCount > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground ring-2 ring-background animate-in zoom-in duration-200">
+                    {cartCount}
+                  </span>
+                )}
+              </Button>
 
-            {/* Toggle de menú móvil */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+              {/* Toggle de menú móvil */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
           </div>
         </div>
 
