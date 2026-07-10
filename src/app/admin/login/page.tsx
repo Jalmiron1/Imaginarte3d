@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
               <Input
                 id="password"
                 type="password"
-                placeholder="Contraseña del archivo .env"
+                placeholder="Contraseña"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
