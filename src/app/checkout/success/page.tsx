@@ -10,6 +10,11 @@ export default async function SuccessPage({ searchParams }: PageProps) {
   const { orderId, paymentMethod } = await searchParams;
   const isTransfer = paymentMethod === 'transfer';
 
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59899123456';
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    `Hola Imaginarte 3D, aquí está el comprobante de mi transferencia bancaria para el pedido con ID: ${orderId || ''}.`
+  )}`;
+
   return (
     <div className="container mx-auto px-4 py-16 text-center max-w-lg flex flex-col items-center gap-6">
       <div className="h-16 w-16 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600">
@@ -50,7 +55,17 @@ export default async function SuccessPage({ searchParams }: PageProps) {
             )}
           </div>
           <div className="text-xs text-amber-500 bg-amber-500/10 p-3 rounded-lg border border-amber-500/20 leading-relaxed">
-            <strong>Importante:</strong> Envía el comprobante de la transferencia a nuestro WhatsApp o correo junto con tu nombre para comenzar la producción de tu pieza 3D.
+            <strong>Importante:</strong> Envía el comprobante de la transferencia a nuestro WhatsApp junto con tu nombre para comenzar la producción de tu pieza 3D.
+          </div>
+          <div className="pt-2">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold text-white hover:bg-emerald-500 shadow-md transition-all cursor-pointer hover:shadow-emerald-500/20"
+            >
+              Enviar comprobante por WhatsApp
+            </a>
           </div>
         </div>
       )}
