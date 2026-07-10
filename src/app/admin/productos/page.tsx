@@ -43,6 +43,7 @@ export default function AdminProductosPage() {
   const [uploadingField, setUploadingField] = useState<'image1' | 'image2' | null>(null);
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const existingCategories = React.useMemo(() => {
     const defaults = ['Figuras', 'Decoración', 'Accesorios', 'Llaveros', 'Otros'];
@@ -310,21 +311,61 @@ export default function AdminProductosPage() {
               </div>
 
               {/* Categoría */}
-              <div className="flex flex-col gap-1.5 sm:col-span-2">
+              <div className="flex flex-col gap-1.5 sm:col-span-2 relative">
                 <Label htmlFor="prod-category">Categoría</Label>
-                <Input
-                  id="prod-category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  placeholder="Selecciona o escribe una categoría..."
-                  list="categories-datalist"
-                  required
-                />
-                <datalist id="categories-datalist">
-                  {existingCategories.map((cat) => (
-                    <option key={cat} value={cat} />
-                  ))}
-                </datalist>
+                <div className="relative">
+                  <Input
+                    id="prod-category"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    onFocus={() => setShowDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+                    placeholder="Escribe o selecciona una categoría..."
+                    className="pr-10"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowDropdown((prev) => !prev);
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer flex items-center justify-center p-1"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`h-4 w-4 transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`}
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                  
+                  {showDropdown && (
+                    <div className="absolute z-50 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-md border border-border bg-popover text-popover-foreground shadow-md">
+                      {existingCategories.map((cat) => (
+                        <button
+                          key={cat}
+                          type="button"
+                          onMouseDown={() => {
+                            setCategory(cat);
+                            setShowDropdown(false);
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Precio */}
