@@ -78,7 +78,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           <img
             src={images[currentImageIndex]}
             alt={product.name}
-            className="h-full w-full object-cover transition-all duration-300"
+            className="h-full w-full object-contain p-4 transition-all duration-300"
           />
           
           {images.length > 1 && (

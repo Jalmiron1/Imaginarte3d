@@ -379,6 +379,15 @@ export default function AdminProductosPage() {
                     <div className="flex items-center gap-2 border border-border rounded-md px-2 py-1 bg-muted max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                       <ImageIcon className="h-4 w-4 text-primary shrink-0" />
                       <span className="text-xs text-muted-foreground truncate">{imageUrl}</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setImageUrl('')}
+                        className="h-5 w-5 text-destructive hover:text-destructive hover:bg-destructive/10 shrink-0 ml-1 rounded-sm"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
                     </div>
                   ) : (
                     <span className="text-xs text-muted-foreground">Ningún archivo subido</span>
@@ -410,6 +419,15 @@ export default function AdminProductosPage() {
                     <div className="flex items-center gap-2 border border-border rounded-md px-2 py-1 bg-muted max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                       <ImageIcon className="h-4 w-4 text-primary shrink-0" />
                       <span className="text-xs text-muted-foreground truncate">{imageUrl2}</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setImageUrl2('')}
+                        className="h-5 w-5 text-destructive hover:text-destructive hover:bg-destructive/10 shrink-0 ml-1 rounded-sm"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
                     </div>
                   ) : (
                     <span className="text-xs text-muted-foreground">Ningún archivo subido</span>
