@@ -42,15 +42,15 @@ export async function PUT(
         return order;
       }
 
-      // Determinar si debemos descontar stock (Transición de CANCELLED a un estado activo)
+      // Determinar si debemos descontar stock (Transición de inactivo [PENDING, CANCELLED] a activo [PAID, PRODUCTION, SHIPPED])
       const shouldDecrement = 
-        oldStatus === 'CANCELLED' && 
-        (newStatus === 'PENDING' || newStatus === 'PAID' || newStatus === 'PRODUCTION' || newStatus === 'SHIPPED');
+        (oldStatus === 'PENDING' || oldStatus === 'CANCELLED') && 
+        (newStatus === 'PAID' || newStatus === 'PRODUCTION' || newStatus === 'SHIPPED');
 
-      // Determinar si debemos reponer/incrementar stock (Transición de estado activo a CANCELLED)
+      // Determinar si debemos reponer/incrementar stock (Transición de activo [PAID, PRODUCTION, SHIPPED] a inactivo [PENDING, CANCELLED])
       const shouldIncrement = 
-        (oldStatus === 'PENDING' || oldStatus === 'PAID' || oldStatus === 'PRODUCTION' || oldStatus === 'SHIPPED') && 
-        newStatus === 'CANCELLED';
+        (oldStatus === 'PAID' || oldStatus === 'PRODUCTION' || oldStatus === 'SHIPPED') && 
+        (newStatus === 'PENDING' || newStatus === 'CANCELLED');
 
       // Actualizar la orden
       const updated = await tx.order.update({

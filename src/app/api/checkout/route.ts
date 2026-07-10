@@ -107,18 +107,6 @@ export async function POST(request: Request) {
         })),
       });
 
-      // Decrementar stock de los productos inmediatamente al crear el pedido
-      for (const item of verifiedItems) {
-        await tx.product.update({
-          where: { id: item.productId },
-          data: {
-            stock: {
-              decrement: item.quantity,
-            },
-          },
-        });
-      }
-
       return newOrder;
     });
 
