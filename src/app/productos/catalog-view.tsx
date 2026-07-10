@@ -16,6 +16,7 @@ interface Product {
   stock: number;
   category: string;
   imageUrl: string;
+  createdAt: string;
 }
 
 interface CatalogViewProps {

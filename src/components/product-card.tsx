@@ -16,6 +16,7 @@ interface ProductCardProps {
     stock: number;
     category: string;
     imageUrl: string;
+    createdAt?: string | Date;
   };
 }
 
@@ -32,6 +33,11 @@ export function ProductCard({ product }: ProductCardProps) {
 
   // Calcular precio con descuento
   const finalPrice = product.price * (1 - product.discount / 100);
+
+  // Determinar si el producto es nuevo (menos de 14 días desde su creación)
+  const isNew = product.createdAt
+    ? (Date.now() - new Date(product.createdAt).getTime()) < 14 * 24 * 60 * 60 * 1000
+    : false;
 
   const handleAddToCart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -115,6 +121,12 @@ export function ProductCard({ product }: ProductCardProps) {
           className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
+        {/* Badge Nuevo */}
+        {isNew && !isOutOfStock && (
+          <span className="absolute top-2 right-2 rounded-full bg-gradient-to-r from-[#FF6FA5] to-[#FFD39A] px-2.5 py-0.5 text-[10px] font-black text-white shadow-md uppercase tracking-widest animate-pulse">
+            Nuevo
+          </span>
+        )}
         {product.discount > 0 && (
           <span className="absolute top-2 left-2 rounded-full bg-red-600 px-2 py-0.5 text-xs font-bold text-white shadow-sm animate-pulse">
             -{product.discount}%
