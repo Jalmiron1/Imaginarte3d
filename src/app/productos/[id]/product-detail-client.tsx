@@ -127,16 +127,16 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         </div>
 
         {/* Textos y Acción de Compra */}
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center items-center text-center md:px-6">
           <span className="text-xs font-bold uppercase tracking-wider text-primary">
             {product.category}
           </span>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl text-balance">
             {product.name}
           </h1>
 
           {/* Precios */}
-          <div className="mt-4 flex items-baseline gap-3">
+          <div className="mt-4 flex items-baseline justify-center gap-3">
             <span className="text-3xl font-extrabold text-foreground">
               ${finalPrice.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
             </span>
@@ -147,11 +147,11 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             )}
           </div>
 
-          <p className="mt-6 text-base text-muted-foreground leading-relaxed whitespace-pre-line">
+          <p className="mt-6 text-base text-muted-foreground leading-relaxed whitespace-pre-line max-w-md text-balance">
             {product.description}
           </p>
 
-          <div className="mt-8 border-t border-border pt-6 flex flex-col gap-6">
+          <div className="mt-8 border-t border-border pt-6 flex flex-col gap-6 w-full max-w-md">
             {/* Stock de Producto */}
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground flex items-center gap-1.5">
