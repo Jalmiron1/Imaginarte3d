@@ -74,9 +74,17 @@ export default async function HomePage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {(() => {
+              const newest5 = new Set(
+                [...products]
+                  .sort((a, b) => new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime())
+                  .slice(0, 5)
+                  .map(p => p.id)
+              );
+              return products.map((product) => (
+                <ProductCard key={product.id} product={product} isNew={newest5.has(product.id)} />
+              ));
+            })()}
           </div>
         )}
       </section>

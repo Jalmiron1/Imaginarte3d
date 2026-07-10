@@ -119,9 +119,17 @@ export function CatalogView({ initialProducts }: CatalogViewProps) {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {(() => {
+            const newest5 = new Set(
+              [...products]
+                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                .slice(0, 5)
+                .map(p => p.id)
+            );
+            return filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} isNew={newest5.has(product.id)} />
+            ));
+          })()}
         </div>
       )}
     </div>

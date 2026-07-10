@@ -18,9 +18,10 @@ interface ProductCardProps {
     imageUrl: string;
     createdAt?: string | Date;
   };
+  isNew?: boolean;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, isNew = false }: ProductCardProps) {
   const { addToCart } = useCart();
   const isOutOfStock = product.stock <= 0;
   const [added, setAdded] = useState(false);
@@ -33,11 +34,6 @@ export function ProductCard({ product }: ProductCardProps) {
 
   // Calcular precio con descuento
   const finalPrice = product.price * (1 - product.discount / 100);
-
-  // Determinar si el producto es nuevo (menos de 14 días desde su creación)
-  const isNew = product.createdAt
-    ? (Date.now() - new Date(product.createdAt).getTime()) < 14 * 24 * 60 * 60 * 1000
-    : false;
 
   const handleAddToCart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -147,16 +143,16 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.category}
         </span>
         <Link href={`/productos/${product.id}`} className="mt-1 block">
-          <h3 className="font-semibold text-base line-clamp-1 hover:text-primary transition-colors">
+          <h3 className="font-semibold text-base line-clamp-1 hover:text-primary transition-colors text-center">
             {product.name}
           </h3>
         </Link>
-        <p className="mt-1 text-xs text-muted-foreground line-clamp-2 flex-1">
+        <p className="mt-1 text-xs text-muted-foreground line-clamp-2 flex-1 text-center">
           {product.description}
         </p>
 
         {/* Precios */}
-        <div className="mt-3 flex items-baseline gap-2">
+        <div className="mt-3 flex items-baseline justify-center gap-2">
           <span className="text-lg font-bold text-foreground">
             ${finalPrice.toLocaleString('es-UY', { minimumFractionDigits: 0 })}
           </span>
