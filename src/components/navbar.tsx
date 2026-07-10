@@ -33,7 +33,7 @@ export function Navbar() {
         {/* Botones de acción */}
         <div className="flex items-center gap-2">
           <Link href="/carrito">
-            <Button variant="outline" size="icon" className="relative h-10 w-10 rounded-full border-border hover:bg-accent transition-all">
+            <Button data-cart-btn variant="outline" size="icon" className="relative h-10 w-10 rounded-full border-border hover:bg-accent transition-all">
               <ShoppingCart className="h-5 w-5" />
               {isLoaded && cartCount > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground ring-2 ring-background animate-in zoom-in duration-200">
