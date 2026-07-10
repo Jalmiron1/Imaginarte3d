@@ -320,10 +320,15 @@ export default function AdminProductosPage() {
                 <Label htmlFor="prod-price">Precio (UYU)</Label>
                 <Input
                   id="prod-price"
-                  type="number"
-                  min="1"
-                  value={price}
-                  onChange={(e) => setPrice(Number(e.target.value))}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={price === 0 ? '' : String(price)}
+                  placeholder="Ej: 1200"
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/[^0-9]/g, '');
+                    setPrice(raw === '' ? 0 : Number(raw));
+                  }}
                   required
                 />
               </div>
@@ -333,11 +338,16 @@ export default function AdminProductosPage() {
                 <Label htmlFor="prod-discount">Descuento (%)</Label>
                 <Input
                   id="prod-discount"
-                  type="number"
-                  min="0"
-                  max="100"
-                  value={discount}
-                  onChange={(e) => setDiscount(Number(e.target.value))}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={discount === 0 ? '' : String(discount)}
+                  placeholder="0"
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/[^0-9]/g, '');
+                    const val = raw === '' ? 0 : Math.min(100, Number(raw));
+                    setDiscount(val);
+                  }}
                   required
                 />
               </div>
@@ -347,10 +357,15 @@ export default function AdminProductosPage() {
                 <Label htmlFor="prod-stock">Stock disponible</Label>
                 <Input
                   id="prod-stock"
-                  type="number"
-                  min="0"
-                  value={stock}
-                  onChange={(e) => setStock(Number(e.target.value))}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={stock === 0 ? '' : String(stock)}
+                  placeholder="0"
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/[^0-9]/g, '');
+                    setStock(raw === '' ? 0 : Number(raw));
+                  }}
                   required
                 />
               </div>
