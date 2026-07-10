@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import db from '@/lib/db';
 import { mpClient } from '@/lib/mp';
 import { Preference } from 'mercadopago';
@@ -9,6 +9,7 @@ const checkoutSchema = z.object({
   customerEmail: z.string().email('El correo electrónico no es válido'),
   customerPhone: z.string().min(1, 'El teléfono es obligatorio'),
   customerAddress: z.string().min(1, 'La dirección de envío es obligatoria'),
+  paymentMethod: z.enum(['mercadopago', 'transfer']).default('mercadopago'),
   items: z.array(
     z.object({
       productId: z.string().uuid(),
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { customerName, customerEmail, customerPhone, customerAddress, items } = result.data;
+    const { customerName, customerEmail, customerPhone, customerAddress, paymentMethod, items } = result.data;
 
     // 1. Obtener los productos correspondientes desde la base de datos
     const productIds = items.map((item) => item.productId);
@@ -109,7 +110,15 @@ export async function POST(request: Request) {
       return newOrder;
     });
 
-    // 4. Crear la preferencia de pago en Mercado Pago
+    // 4. Si la forma de pago es transferencia bancaria, retornar éxito directamente
+    if (paymentMethod === 'transfer') {
+      return NextResponse.json({
+        orderId: order.id,
+        isTransfer: true,
+      });
+    }
+
+    // 5. Crear la preferencia de pago en Mercado Pago
     const origin = request.headers.get('origin') || 'http://localhost:3000';
     const preference = new Preference(mpClient);
 

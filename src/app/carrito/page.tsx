@@ -17,6 +17,8 @@ export default function CarritoPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [shippingOption, setShippingOption] = useState('DAC - Envío a Domicilio');
+  const [paymentMethod, setPaymentMethod] = useState('mercadopago');
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -42,7 +44,8 @@ export default function CarritoPage() {
           customerName: name,
           customerEmail: email,
           customerPhone: phone,
-          customerAddress: address,
+          customerAddress: `${address} | Envío: ${shippingOption} | Método de Pago: ${paymentMethod === 'mercadopago' ? 'Mercado Pago' : 'Transferencia Bancaria'}`,
+          paymentMethod,
           items: cartItems.map((item) => ({
             productId: item.productId,
             quantity: item.quantity,
@@ -59,9 +62,13 @@ export default function CarritoPage() {
       // Vaciar carrito
       clearCart();
 
-      // Redirigir a Mercado Pago
-      const redirectUrl = data.sandboxInitPoint || data.initPoint;
-      window.location.href = redirectUrl;
+      if (data.isTransfer) {
+        window.location.href = `/checkout/success?orderId=${data.orderId}&paymentMethod=transfer`;
+      } else {
+        // Redirigir a Mercado Pago
+        const redirectUrl = data.sandboxInitPoint || data.initPoint;
+        window.location.href = redirectUrl;
+      }
     } catch (err: any) {
       console.error(err);
       setError(err.message || 'Error de conexión con el servidor');
@@ -221,16 +228,43 @@ export default function CarritoPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="address">Dirección Completa de Envío</Label>
+                  <Label htmlFor="address">Dirección</Label>
                   <Input
                     id="address"
-                    placeholder="Av. Rivadavia 1234, CABA"
+                    placeholder="Av. 18 de Julio 1234, Montevideo"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     required
                     disabled={loading}
                     className="bg-card text-foreground"
                   />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="shipping">Opción de Envío</Label>
+                  <select
+                    id="shipping"
+                    value={shippingOption}
+                    onChange={(e) => setShippingOption(e.target.value)}
+                    disabled={loading}
+                    className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-foreground"
+                  >
+                    <option value="DAC - Envío a Domicilio">DAC - Envío a Domicilio</option>
+                    <option value="DAC - Retiro en Agencia">DAC - Retiro en Agencia</option>
+                    <option value="Retiro en Taller (Gratis)">Retiro en Taller (Gratis)</option>
+                  </select>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="payment">Forma de Pago</Label>
+                  <select
+                    id="payment"
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    disabled={loading}
+                    className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-foreground"
+                  >
+                    <option value="mercadopago">Mercado Pago</option>
+                    <option value="transfer">Transferencia Bancaria</option>
+                  </select>
                 </div>
 
                 {error && (
@@ -251,12 +285,16 @@ export default function CarritoPage() {
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Redireccionando a Mercado Pago...
+                      {paymentMethod === 'mercadopago' 
+                        ? 'Redireccionando a Mercado Pago...' 
+                        : 'Procesando tu pedido...'}
                     </>
                   ) : (
                     <>
                       <CreditCard className="h-4 w-4" />
-                      Pagar con Mercado Pago
+                      {paymentMethod === 'mercadopago' 
+                        ? 'Pagar con Mercado Pago' 
+                        : 'Confirmar Pedido (Transferencia)'}
                     </>
                   )}
                 </Button>
