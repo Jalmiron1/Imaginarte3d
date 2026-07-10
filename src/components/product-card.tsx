@@ -123,7 +123,7 @@ export function ProductCard({ product }: ProductCardProps) {
         />
         {/* Badge Nuevo */}
         {isNew && !isOutOfStock && (
-          <span className="absolute top-2 right-2 rounded-full bg-gradient-to-r from-[#FF6FA5] to-[#FFD39A] px-2.5 py-0.5 text-[10px] font-black text-white shadow-md uppercase tracking-widest animate-pulse">
+          <span className="absolute top-2 right-2 rounded-full bg-emerald-500 px-2.5 py-0.5 text-[10px] font-black text-white shadow-md uppercase tracking-widest">
             Nuevo
           </span>
         )}
