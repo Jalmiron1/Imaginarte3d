@@ -15,6 +15,20 @@ const productSchema = z.object({
 // GET: Listar todos los productos (sección admin o público)
 export async function GET(request: Request) {
   try {
+    // Corrección automática de categorías en minúsculas
+    try {
+      await db.product.updateMany({
+        where: { category: 'caja' },
+        data: { category: 'Caja' },
+      });
+      await db.product.updateMany({
+        where: { category: 'figura' },
+        data: { category: 'Figuras' },
+      });
+    } catch (e) {
+      console.error('Error al normalizar categorías:', e);
+    }
+
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     const search = searchParams.get('search');

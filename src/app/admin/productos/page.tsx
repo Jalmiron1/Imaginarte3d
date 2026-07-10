@@ -46,8 +46,14 @@ export default function AdminProductosPage() {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const existingCategories = React.useMemo(() => {
-    const defaults = ['Figuras', 'Decoración', 'Accesorios', 'Llaveros', 'Otros'];
-    const cats = products.map((p) => p.category);
+    const defaults = ['Figuras', 'Decoración', 'Accesorios', 'Llaveros', 'Otros', 'Caja'];
+    const cats = products.map((p) => {
+      if (!p.category) return '';
+      const c = p.category.trim();
+      if (c === 'caja') return 'Caja';
+      if (c === 'figura') return 'Figuras';
+      return c.charAt(0).toUpperCase() + c.slice(1);
+    });
     return Array.from(new Set([...defaults, ...cats].filter(Boolean)));
   }, [products]);
 
