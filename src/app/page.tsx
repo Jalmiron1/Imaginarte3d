@@ -29,7 +29,7 @@ export default async function HomePage() {
             <span>Nuevos lanzamientos y diseños 3D únicos</span>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-balance">
-            Materializamos tus ideas en <span className="bg-gradient-to-r from-[#FF6FA5] to-[#FFD39A] bg-clip-text text-transparent">Impresión 3D</span>
+            Materializamos tus ideas en <span className="text-primary">Impresión 3D</span>
           </h1>
           <p className="text-lg text-slate-300 text-balance max-w-2xl">
             Explora nuestro catálogo de productos de alta precisión. Figuras articuladas, decoración para el hogar y accesorios impresos con plásticos ecológicos.
