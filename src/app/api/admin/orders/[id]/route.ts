@@ -23,18 +23,71 @@ export async function PUT(
       return NextResponse.json({ error: 'Estado de orden no válido' }, { status: 400 });
     }
 
-    const existingOrder = await db.order.findUnique({
-      where: { id },
+    const updatedOrder = await db.$transaction(async (tx) => {
+      const order = await tx.order.findUnique({
+        where: { id },
+        include: { items: true },
+      });
+
+      if (!order) {
+        return null;
+      }
+
+      const oldStatus = order.status;
+      const newStatus = result.data.status;
+
+      // Si el estado es idéntico, solo retornamos la orden
+      if (oldStatus === newStatus) {
+        return order;
+      }
+
+      // Determinar si debemos descontar stock (Transición de PENDING a aprobado o enviado)
+      const shouldDecrement = 
+        oldStatus === 'PENDING' && 
+        (newStatus === 'PAID' || newStatus === 'SHIPPED');
+
+      // Determinar si debemos reponer/incrementar stock (Transición de aprobado/enviado a cancelado/pendiente)
+      const shouldIncrement = 
+        (oldStatus === 'PAID' || oldStatus === 'SHIPPED') && 
+        (newStatus === 'CANCELLED' || newStatus === 'PENDING');
+
+      // Actualizar la orden
+      const updated = await tx.order.update({
+        where: { id },
+        data: { status: newStatus },
+      });
+
+      // Ejecutar ajustes de stock en base de datos
+      if (shouldDecrement) {
+        for (const item of order.items) {
+          await tx.product.update({
+            where: { id: item.productId },
+            data: {
+              stock: {
+                decrement: item.quantity,
+              },
+            },
+          });
+        }
+      } else if (shouldIncrement) {
+        for (const item of order.items) {
+          await tx.product.update({
+            where: { id: item.productId },
+            data: {
+              stock: {
+                increment: item.quantity,
+              },
+            },
+          });
+        }
+      }
+
+      return updated;
     });
 
-    if (!existingOrder) {
+    if (!updatedOrder) {
       return NextResponse.json({ error: 'Orden no encontrada' }, { status: 404 });
     }
-
-    const updatedOrder = await db.order.update({
-      where: { id },
-      data: { status: result.data.status },
-    });
 
     return NextResponse.json(updatedOrder);
   } catch (error) {
