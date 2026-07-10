@@ -28,71 +28,6 @@ export function PrinterTrailBackground() {
   const particlesRef = useRef<Particle[]>([]);
 
   useEffect(() => {
-    // Generar el cursor de Mario Bros usando un canvas secundario
-    const createMarioCursor = () => {
-      const cursorCanvas = document.createElement('canvas');
-      cursorCanvas.width = 32;
-      cursorCanvas.height = 32;
-      const cursorCtx = cursorCanvas.getContext('2d');
-      if (!cursorCtx) return null;
-
-      // Matriz clásica de 12x9 píxeles para la cabeza de Mario
-      const grid = [
-        [0,0,0,1,1,1,1,1,0,0,0,0],
-        [0,1,1,1,1,1,1,1,1,1,0,0],
-        [0,3,3,3,2,2,4,2,0,0,0,0],
-        [3,2,3,2,2,2,4,2,2,2,0,0],
-        [3,2,3,3,2,2,2,4,2,2,2,0],
-        [3,3,2,2,2,2,4,4,4,4,0,0],
-        [0,0,2,2,2,2,2,2,2,0,0,0],
-        [0,0,0,1,1,1,1,1,0,0,0,0],
-        [0,0,1,1,1,1,1,1,1,0,0,0]
-      ];
-
-      const colors: { [key: number]: string } = {
-        0: 'transparent',
-        1: '#E52521', // Rojo
-        2: '#FCD1A1', // Piel/Peach
-        3: '#865125', // Marrón
-        4: '#000000'  // Negro
-      };
-
-      const scale = 2.4; // Escala para ajustar la cabeza a ~28x22px
-      const offsetX = Math.floor((32 - (12 * scale)) / 2);
-      const offsetY = Math.floor((32 - (9 * scale)) / 2);
-
-      for (let r = 0; r < grid.length; r++) {
-        for (let c = 0; c < grid[r].length; c++) {
-          const colorCode = grid[r][c];
-          if (colorCode !== 0) {
-            cursorCtx.fillStyle = colors[colorCode];
-            cursorCtx.fillRect(
-              offsetX + c * scale,
-              offsetY + r * scale,
-              scale,
-              scale
-            );
-          }
-        }
-      }
-
-      return cursorCanvas.toDataURL();
-    };
-
-    const cursorDataUrl = createMarioCursor();
-    let styleTag: HTMLStyleElement | null = null;
-
-    if (cursorDataUrl) {
-      styleTag = document.createElement('style');
-      styleTag.id = 'mario-cursor-style';
-      styleTag.innerHTML = `
-        html, body, a, button, select, input, textarea, [role="button"] {
-          cursor: url(${cursorDataUrl}) 12 2, auto !important;
-        }
-      `;
-      document.head.appendChild(styleTag);
-    }
-
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -291,7 +226,6 @@ export function PrinterTrailBackground() {
     render();
 
     return () => {
-      if (styleTag) styleTag.remove();
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
