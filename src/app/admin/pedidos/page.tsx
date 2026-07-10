@@ -144,7 +144,7 @@ export default function AdminPedidosPage() {
   const getStatusLabel = (status: Order['status']) => {
     switch (status) {
       case 'PENDING': return 'Pendiente';
-      case 'PAID': return 'Pagado';
+      case 'PAID': return 'Pago';
       case 'PRODUCTION': return 'En producción';
       case 'SHIPPED': return 'Enviado';
       case 'CANCELLED': return 'Cancelado';
@@ -357,7 +357,7 @@ export default function AdminPedidosPage() {
                     </SelectTrigger>
                     <SelectContent className="bg-card text-foreground border-border">
                       <SelectItem value="PENDING" className="cursor-pointer">Pendiente</SelectItem>
-                      <SelectItem value="PAID" className="cursor-pointer">Pagado</SelectItem>
+                      <SelectItem value="PAID" className="cursor-pointer">Pago</SelectItem>
                       <SelectItem value="PRODUCTION" className="cursor-pointer">En producción</SelectItem>
                       <SelectItem value="SHIPPED" className="cursor-pointer">Enviado</SelectItem>
                       <SelectItem value="CANCELLED" className="cursor-pointer text-destructive">Cancelado</SelectItem>
