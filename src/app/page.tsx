@@ -23,7 +23,6 @@ export default async function HomePage() {
     <div className="flex flex-col gap-12 pb-12">
       {/* Sección Hero */}
       <section className="relative overflow-hidden py-20 text-center sm:py-32 bg-background text-foreground">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-background to-background" />
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center gap-6 max-w-4xl">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
             <Sparkles className="h-3.5 w-3.5 animate-pulse text-primary" />
