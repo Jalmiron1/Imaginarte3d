@@ -9,7 +9,7 @@ const productSchema = z.object({
   discount: z.number().min(0).max(100),
   stock: z.number().int().nonnegative(),
   category: z.string().min(1),
-  imageUrl: z.string().url(),
+  imageUrl: z.string().min(1),
 });
 
 type RouteParams = {

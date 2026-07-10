@@ -9,7 +9,7 @@ const productSchema = z.object({
   discount: z.number().min(0).max(100).default(0),
   stock: z.number().int().nonnegative('El stock debe ser no negativo'),
   category: z.string().min(1, 'La categoría es obligatoria'),
-  imageUrl: z.string().url('Debe ser una URL de imagen válida'),
+  imageUrl: z.string().min(1, 'La URL de la imagen es obligatoria'),
 });
 
 // GET: Listar todos los productos (sección admin o público)

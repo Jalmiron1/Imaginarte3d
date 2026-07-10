@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/components/cart-provider';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, ArrowLeft, Minus, Plus, Box, Check } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, Minus, Plus, Box, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -25,6 +25,9 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [addedSuccessfully, setAddedSuccessfully] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = product.imageUrl.split(',');
 
   const isOutOfStock = product.stock <= 0;
   const finalPrice = product.price * (1 - product.discount / 100);
@@ -46,7 +49,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         name: product.name,
         price: product.price,
         discount: product.discount,
-        imageUrl: product.imageUrl,
+        imageUrl: images[0],
         maxStock: product.stock,
       },
       quantity
@@ -70,13 +73,45 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
       {/* Detalles del Producto */}
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {/* Imagen del Producto */}
-        <div className="relative aspect-square overflow-hidden rounded-2xl border border-border bg-muted flex items-center justify-center">
+        {/* Imagen del Producto (con soporte de carrusel) */}
+        <div className="relative aspect-square overflow-hidden rounded-2xl border border-border bg-muted flex items-center justify-center group/carousel">
           <img
-            src={product.imageUrl}
+            src={images[currentImageIndex]}
             alt={product.name}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition-all duration-300"
           />
+          
+          {images.length > 1 && (
+            <>
+              {/* Botón Izquierdo */}
+              <button
+                onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background border border-border p-1.5 rounded-full text-foreground opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-200 cursor-pointer shadow-sm flex items-center justify-center"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              {/* Botón Derecho */}
+              <button
+                onClick={() => setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background border border-border p-1.5 rounded-full text-foreground opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-200 cursor-pointer shadow-sm flex items-center justify-center"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+              {/* Indicadores */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 bg-background/60 backdrop-blur-xs px-2.5 py-1 rounded-full border border-border/50">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`h-2 w-2 rounded-full transition-all cursor-pointer ${
+                      index === currentImageIndex ? 'bg-primary w-4' : 'bg-muted-foreground/50 hover:bg-muted-foreground'
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
           {product.discount > 0 && (
             <span className="absolute top-4 left-4 rounded-full bg-red-600 px-3 py-1 text-sm font-bold text-white shadow-md animate-pulse">
               Descuento -{product.discount}%

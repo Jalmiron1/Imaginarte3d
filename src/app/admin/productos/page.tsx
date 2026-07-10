@@ -38,8 +38,9 @@ export default function AdminProductosPage() {
   const [stock, setStock] = useState(0);
   const [category, setCategory] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl2, setImageUrl2] = useState('');
   
-  const [uploading, setUploading] = useState(false);
+  const [uploadingField, setUploadingField] = useState<'image1' | 'image2' | null>(null);
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
 
@@ -71,6 +72,7 @@ export default function AdminProductosPage() {
     setStock(0);
     setCategory('');
     setImageUrl('');
+    setImageUrl2('');
     setFormError('');
     setFormOpen(true);
   };
@@ -83,7 +85,9 @@ export default function AdminProductosPage() {
     setDiscount(product.discount);
     setStock(product.stock);
     setCategory(product.category);
-    setImageUrl(product.imageUrl);
+    const urls = product.imageUrl.split(',');
+    setImageUrl(urls[0] || '');
+    setImageUrl2(urls[1] || '');
     setFormError('');
     setFormOpen(true);
   };
@@ -93,11 +97,11 @@ export default function AdminProductosPage() {
     setDeleteOpen(true);
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: 'image1' | 'image2') => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
+    setUploadingField(field);
     setFormError('');
 
     const formData = new FormData();
@@ -115,11 +119,15 @@ export default function AdminProductosPage() {
         throw new Error(data.error || 'Error al subir la imagen');
       }
 
-      setImageUrl(data.imageUrl);
+      if (field === 'image1') {
+        setImageUrl(data.imageUrl);
+      } else {
+        setImageUrl2(data.imageUrl);
+      }
     } catch (err: any) {
       setFormError(err.message || 'Error al subir el archivo');
     } finally {
-      setUploading(false);
+      setUploadingField(null);
     }
   };
 
@@ -135,7 +143,7 @@ export default function AdminProductosPage() {
       discount: Number(discount),
       stock: Number(stock),
       category,
-      imageUrl,
+      imageUrl: [imageUrl, imageUrl2].filter(Boolean).join(','),
     };
 
     try {
@@ -231,7 +239,7 @@ export default function AdminProductosPage() {
                 <TableRow key={product.id}>
                   <TableCell>
                     <img
-                      src={product.imageUrl}
+                      src={product.imageUrl.split(',')[0]}
                       alt={product.name}
                       className="h-10 w-10 rounded-md object-cover bg-muted border border-border"
                     />
@@ -347,9 +355,9 @@ export default function AdminProductosPage() {
                 />
               </div>
 
-              {/* Imagen (Subida de Archivo) */}
+              {/* Imagen 1 (Subida de Archivo) */}
               <div className="flex flex-col gap-1.5 sm:col-span-2">
-                <Label>Imagen del Producto</Label>
+                <Label>Imagen Principal (Obligatoria)</Label>
                 <div className="flex items-center gap-3">
                   <label className="flex items-center gap-2 rounded-lg border border-border bg-muted px-4 py-2 text-sm font-semibold text-foreground cursor-pointer hover:bg-accent transition-all shrink-0">
                     <Upload className="h-4 w-4" />
@@ -357,12 +365,12 @@ export default function AdminProductosPage() {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={handleImageUpload}
+                      onChange={(e) => handleImageUpload(e, 'image1')}
                       className="hidden"
-                      disabled={uploading || formSubmitting}
+                      disabled={uploadingField !== null || formSubmitting}
                     />
                   </label>
-                  {uploading ? (
+                  {uploadingField === 'image1' ? (
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />
                       <span>Subiendo...</span>
@@ -371,6 +379,37 @@ export default function AdminProductosPage() {
                     <div className="flex items-center gap-2 border border-border rounded-md px-2 py-1 bg-muted max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                       <ImageIcon className="h-4 w-4 text-primary shrink-0" />
                       <span className="text-xs text-muted-foreground truncate">{imageUrl}</span>
+                    </div>
+                  ) : (
+                    <span className="text-xs text-muted-foreground">Ningún archivo subido</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Imagen 2 (Subida de Archivo Opcional) */}
+              <div className="flex flex-col gap-1.5 sm:col-span-2">
+                <Label>Imagen Secundaria (Opcional)</Label>
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-2 rounded-lg border border-border bg-muted px-4 py-2 text-sm font-semibold text-foreground cursor-pointer hover:bg-accent transition-all shrink-0">
+                    <Upload className="h-4 w-4" />
+                    <span>Subir archivo</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e, 'image2')}
+                      className="hidden"
+                      disabled={uploadingField !== null || formSubmitting}
+                    />
+                  </label>
+                  {uploadingField === 'image2' ? (
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      <span>Subiendo...</span>
+                    </div>
+                  ) : imageUrl2 ? (
+                    <div className="flex items-center gap-2 border border-border rounded-md px-2 py-1 bg-muted max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
+                      <ImageIcon className="h-4 w-4 text-primary shrink-0" />
+                      <span className="text-xs text-muted-foreground truncate">{imageUrl2}</span>
                     </div>
                   ) : (
                     <span className="text-xs text-muted-foreground">Ningún archivo subido</span>
@@ -410,7 +449,7 @@ export default function AdminProductosPage() {
               </Button>
               <Button
                 type="submit"
-                disabled={formSubmitting || uploading || !imageUrl}
+                disabled={formSubmitting || uploadingField !== null || !imageUrl}
                 className="cursor-pointer"
               >
                 {formSubmitting ? (
