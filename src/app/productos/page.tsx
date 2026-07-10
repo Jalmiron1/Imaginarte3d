@@ -7,11 +7,11 @@ export const revalidate = 0; // Datos siempre actualizados de Supabase
 export default async function ProductosPage() {
   let products: any[] = [];
   try {
-    products = await db.product.findMany({
+    products = (await db.product.findMany({
       orderBy: {
         createdAt: 'desc',
       },
-    });
+    })).map(p => ({ ...p, createdAt: p.createdAt.toISOString() }));
   } catch (error) {
     console.error('Error al obtener el catálogo:', error);
   }

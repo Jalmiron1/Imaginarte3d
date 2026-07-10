@@ -9,12 +9,12 @@ export const revalidate = 0; // Evitar almacenamiento en caché para datos diná
 export default async function HomePage() {
   let products: any[] = [];
   try {
-    products = await db.product.findMany({
+    products = (await db.product.findMany({
       take: 4,
       orderBy: {
         createdAt: 'desc',
       },
-    });
+    })).map(p => ({ ...p, createdAt: p.createdAt.toISOString() }));
   } catch (error) {
     console.error('Error al obtener productos en la Home:', error);
   }
