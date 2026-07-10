@@ -42,9 +42,9 @@ export default async function HomePage() {
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/productos?category=Decoración">
+            <Link href="/productos?category=Figuras">
               <Button size="lg" variant="outline" className="cursor-pointer border-slate-700 text-slate-300 hover:bg-slate-900 hover:text-white">
-                Decoración
+                Figuras
               </Button>
             </Link>
           </div>
