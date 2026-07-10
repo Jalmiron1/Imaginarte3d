@@ -71,15 +71,18 @@ export async function DELETE(
       return NextResponse.json({ error: 'Producto no encontrado' }, { status: 404 });
     }
 
-    // Eliminar el producto; las relaciones de OrderItem se eliminan en cascada por la configuración de la base de datos
+    // Eliminar primero las relaciones de OrderItem asociadas para evitar errores de restricción de clave foránea (FK constraint) en la base de datos
+    await db.orderItem.deleteMany({
+      where: { productId: id },
+    });
 
     await db.product.delete({
       where: { id },
     });
 
     return NextResponse.json({ success: true, message: 'Producto eliminado correctamente' });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error al eliminar producto:', error);
-    return NextResponse.json({ error: 'Error al eliminar el producto' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al eliminar el producto', details: error.message }, { status: 500 });
   }
 }
