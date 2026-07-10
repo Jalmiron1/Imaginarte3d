@@ -85,7 +85,7 @@ export async function POST(request: Request) {
       });
     }
 
-    // 3. Crear orden de compra en estado PENDING y sus items asociados usando una transacción
+    // 3. Crear orden de compra en estado PENDING y sus items asociados usando una transacción, y descontar stock inmediatamente
     const order = await db.$transaction(async (tx) => {
       const newOrder = await tx.order.create({
         data: {
@@ -106,6 +106,18 @@ export async function POST(request: Request) {
           price: item.price,
         })),
       });
+
+      // Decrementar stock de los productos inmediatamente al crear el pedido
+      for (const item of verifiedItems) {
+        await tx.product.update({
+          where: { id: item.productId },
+          data: {
+            stock: {
+              decrement: item.quantity,
+            },
+          },
+        });
+      }
 
       return newOrder;
     });

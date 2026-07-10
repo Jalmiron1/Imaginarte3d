@@ -50,26 +50,14 @@ export async function POST(request: Request) {
               return;
             }
 
-            // 1. Actualizar estado del pedido a PAID
+            // 1. Actualizar estado del pedido a PAID (el stock ya fue descontado en el checkout)
             await tx.order.update({
-              where: { id: orderId },
-              data: { status: 'PAID' },
-            });
-
-            // 2. Decrementar el stock de cada producto en la base de datos
-            for (const item of order.items) {
-              await tx.product.update({
-                where: { id: item.productId },
-                data: {
-                  stock: {
-                    decrement: item.quantity,
-                  },
-                },
-              });
-            }
-
-            console.log(`Webhook procesado exitosamente: Orden ${orderId} pagada.`);
-          });
+               where: { id: orderId },
+               data: { status: 'PAID' },
+             });
+ 
+             console.log(`Webhook procesado exitosamente: Orden ${orderId} pagada.`);
+           });
         }
       }
     }
