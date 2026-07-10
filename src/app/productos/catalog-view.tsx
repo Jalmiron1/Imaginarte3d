@@ -121,7 +121,7 @@ export function CatalogView({ initialProducts }: CatalogViewProps) {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {(() => {
             const newest5 = new Set(
-              [...products]
+              [...initialProducts]
                 .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 .slice(0, 5)
                 .map(p => p.id)
