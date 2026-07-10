@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart-provider";
 import { Navbar } from "@/components/navbar";
+import { PrinterTrailBackground } from "@/components/printer-trail-background";
 import Link from "next/link";
 import { Lock } from "lucide-react";
 
@@ -30,8 +31,9 @@ export default function RootLayout({
     <html lang="es" className="h-full scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-background text-foreground flex flex-col font-sans`}>
         <CartProvider>
+          <PrinterTrailBackground />
           <Navbar />
-          <main className="flex-1">
+          <main className="flex-1 relative z-10">
             {children}
           </main>
           <footer className="border-t border-border bg-muted py-6 mt-12">
