@@ -44,6 +44,12 @@ export default function AdminProductosPage() {
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
 
+  const existingCategories = React.useMemo(() => {
+    const defaults = ['Figuras', 'Decoración', 'Accesorios', 'Llaveros', 'Otros'];
+    const cats = products.map((p) => p.category);
+    return Array.from(new Set([...defaults, ...cats].filter(Boolean)));
+  }, [products]);
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -310,9 +316,15 @@ export default function AdminProductosPage() {
                   id="prod-category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  placeholder="Ej. Articulados, Decoración"
+                  placeholder="Selecciona o escribe una categoría..."
+                  list="categories-datalist"
                   required
                 />
+                <datalist id="categories-datalist">
+                  {existingCategories.map((cat) => (
+                    <option key={cat} value={cat} />
+                  ))}
+                </datalist>
               </div>
 
               {/* Precio */}
