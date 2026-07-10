@@ -82,6 +82,41 @@ export default async function HomePage() {
       </section>
 
       {/* Sección de Beneficios de Negocio */}
+      {/* Sección Instagram */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 border-t border-border pt-12 mt-6">
+        <div className="rounded-2xl border border-border bg-card p-8 md:p-12 text-center flex flex-col items-center gap-4 relative overflow-hidden shadow-sm hover:border-primary/20 transition-all">
+          <div className="h-14 w-14 rounded-full bg-gradient-to-tr from-[#F56040] via-[#E1306C] to-[#833AB4] flex items-center justify-center text-white shadow-md">
+            <svg
+              className="h-7 w-7 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-2">
+            Seguinos en Instagram
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-lg leading-relaxed">
+            ¿Querés ver el proceso de impresión en tiempo real, videos detallados y nuestros últimos diseños? Seguí nuestra cuenta <strong className="text-primary">@imaginarte3d_cdp</strong> y enterate de todas las novedades del taller.
+          </p>
+          <a
+            href="https://www.instagram.com/imaginarte3d_cdp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#E1306C] to-[#C13584] px-5 py-2.5 text-sm font-bold text-white hover:brightness-110 shadow-md transition-all cursor-pointer hover:shadow-[0_0_15px_rgba(225,48,108,0.3)]"
+          >
+            Ver nuestro Instagram
+          </a>
+        </div>
+      </section>
+
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 border-t border-border pt-12 mt-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="flex flex-col items-center text-center p-4">
