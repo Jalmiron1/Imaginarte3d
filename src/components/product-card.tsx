@@ -23,6 +23,10 @@ export function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const isOutOfStock = product.stock <= 0;
 
+  // Separar imágenes si hay múltiples URLs
+  const imageUrls = product.imageUrl.split(',');
+  const primaryImageUrl = imageUrls[0] || '';
+
   // Calcular precio con descuento
   const finalPrice = product.price * (1 - product.discount / 100);
 
@@ -34,7 +38,7 @@ export function ProductCard({ product }: ProductCardProps) {
         name: product.name,
         price: product.price,
         discount: product.discount,
-        imageUrl: product.imageUrl,
+        imageUrl: primaryImageUrl,
         maxStock: product.stock,
       },
       1
@@ -46,7 +50,7 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Contenedor de la Imagen */}
       <Link href={`/productos/${product.id}`} className="relative aspect-square overflow-hidden bg-muted block">
         <img
-          src={product.imageUrl}
+          src={primaryImageUrl}
           alt={product.name}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
